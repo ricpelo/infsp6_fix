@@ -26,6 +26,7 @@
 !                   TryGivenObject            SP PATCH        
 !                   NounDomain                SP PATCH        
 !                   Indefart                  SP PATCH        
+!                   CInDefArt                 SP PATCH        
 !                   Parser__parse             SP PATCH       
 
 
@@ -783,7 +784,15 @@
     PrefaceByArticle(o, 2); indef_mode = i;
 ];
 
-
+[ CInDefArt o i;
+    i = indef_mode; indef_mode = true;
+    if (o has proper) { indef_mode = NULL; print "a ",(PSN__) o; indef_mode = i; return; }
+    if (o provides article) {
+        PrintCapitalised(o, article, 1); print " ", (PSN__) o; indef_mode = i;
+        return;
+    }
+    PrefaceByArticle(o, 2, 0, 1); indef_mode = i;
+];
 
 ! #############################################################################
 

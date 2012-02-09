@@ -35,6 +35,7 @@ Replace PrefaceByArticle;
 Replace Identical;
 Replace TryGivenObject;
 Replace Indefart;
+Replace CInDefArt;
 Replace BestGuess;
 Replace NounDomain;
 Replace Parser__parse;
