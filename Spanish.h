@@ -37,6 +37,7 @@ Replace TryGivenObject;
 Replace Indefart;
 Replace BestGuess;
 Replace NounDomain;
+Replace Parser__parse;
 
 
 ! ---------------------------------------------------------------------------
