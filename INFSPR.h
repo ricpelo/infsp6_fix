@@ -1256,6 +1256,12 @@
 
             if (line_ttype-->pcount == ELEMENTARY_TT) {
                 if (line_tdata-->pcount == MULTI_TOKEN) m = true;
+                ! [001115] Añadida la comprobación MULTIHELD_TOKEN
+                ! para capturar correctamente el caso DEJA TODO
+                if (line_tdata-->pcount == MULTIHELD_TOKEN) {
+                    m = true;
+                    indef_owner = actor;
+                }
                 if (line_tdata-->pcount == MULTIEXCEPT_TOKEN or MULTIINSIDE_TOKEN  && i == 1) {
                     ! First non-preposition is "multiexcept" or
                     ! "multiinside", so look ahead.
@@ -1268,68 +1274,31 @@
 
                     pcount++;
                     if (line_ttype-->pcount == PREPOSITION_TT) {
-                        ! skip ahead to a preposition word in the input
-                        do {
-                            l = NextWord();
-                        } until ((wn > num_words) ||
-                                 (l && (l->#dict_par1) & 8 ~= 0));
-
-                        if (wn > num_words) {
-                            #Ifdef DEBUG;
-                            if (parser_trace >= 2)
-                                print " [Look-ahead aborted: prepositions missing]^";
-                            #Endif;
-                            jump LineFailed;
-                        }
-
-                        do {
-                            if (PrepositionChain(l, pcount) ~= -1) {
-                                ! advance past the chain
-                                if ((line_token-->pcount)->0 & $20 ~= 0) {
-                                    pcount++;
-                                    while ((line_token-->pcount ~= ENDIT_TOKEN) &&
-                                           ((line_token-->pcount)->0 & $10 ~= 0))
-                                        pcount++;
-                                } else {
-                                    pcount++;
-                                }
-                            } else {
-                                ! try to find another preposition word
-                                do {
-                                    l = NextWord();
-                                } until ((wn >= num_words) ||
-                                         (l && (l->#dict_par1) & 8 ~= 0));
-
-                                 if (l && (l->#dict_par1) & 8) continue;
-
-                                ! lookahead failed
-                                #Ifdef DEBUG;
-                                if (parser_trace >= 2)
-                                    print " [Look-ahead aborted: prepositions don't match]^";
-                                #endif;
-                                jump LineFailed;
-                            }
-                            l = NextWord();
-                        } until (line_ttype-->pcount ~= PREPOSITION_TT);
-
-                        ! put back the non-preposition we just read
-                        wn--;
+                        while (line_ttype-->pcount == PREPOSITION_TT) pcount++;
 
                         if ((line_ttype-->pcount == ELEMENTARY_TT) && (line_tdata-->pcount == NOUN_TOKEN)) {
-                            l = Descriptors();  ! skip past THE etc
-                            if (l~=0) etype=l;  ! don't allow multiple objects
-                            l = NounDomain(actors_location, actor, NOUN_TOKEN);
-                            #Ifdef DEBUG;
-                            if (parser_trace >= 2) {
-                                print " [Advanced to ~noun~ token: ";
-                                if (l == REPARSE_CODE) print "re-parse request]^";
-                                if (l == 1) print "but multiple found]^";
-                                if (l == 0) print "error ", etype, "]^";
-                                if (l >= 2) print (the) l, "]^";
+
+                            ! Advance past the last preposition
+
+                            while (wn < num_words) {
+                                l=NextWord();
+                                if ( l && (l->#dict_par1) &8 ) {   ! if preposition
+                                    l = Descriptors();  ! skip past THE etc
+                                    if (l~=0) etype=l;  ! don't allow multiple objects
+                                    l = NounDomain(actors_location, actor, NOUN_TOKEN);
+                                    #Ifdef DEBUG;
+                                    if (parser_trace >= 2) {
+                                        print " [Advanced to ~noun~ token: ";
+                                        if (l == REPARSE_CODE) print "re-parse request]^";
+                                        if (l == 1) print "but multiple found]^";
+                                        if (l == 0) print "error ", etype, "]^";
+                                        if (l >= 2) print (the) l, "]^";
+                                    }
+                                    #Endif; ! DEBUG
+                                    if (l == REPARSE_CODE) jump ReParse;
+                                    if (l >= 2) advance_warning = l;
+                                }
                             }
-                            #Endif; ! DEBUG
-                            if (l == REPARSE_CODE) jump ReParse;
-                            if (l >= 2) advance_warning = l;
                         }
                     }
                     break;
@@ -1550,7 +1519,6 @@
             } ! end of if(token ~= ENDIT_TOKEN) else
         } ! end of for(pcount++)
 
-        .LineFailed;
         ! The line has failed to match.
         ! We continue the outer "for" loop, trying the next line in the grammar.
 
