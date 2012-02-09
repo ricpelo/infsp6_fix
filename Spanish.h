@@ -688,7 +688,101 @@ Array LanguageNumbers table
         PreguntaCualExactamente=0;
         EliminarDuplicados(buf, pars);
     }
-    
+
+    ! Si la frase acaba en 'de' o 'del', quitamos esas dos partículas.
+    ! Si acaba en 'el', entendemos que se refiere a un pronombre, y lo
+    ! sustituimos por '-lo':
+    retokenise = 0;
+    x = tokenCount(pars);
+    word = tokenDict(pars, x);
+    at   = tokenPos(pars, x);
+    len  = tokenLen(pars, x);
+    if (word == 'de') {
+        buf->at = ' '; buf->(at + 1) = ' ';
+        retokenise = 1;
+    } else if (word == 'del') {
+        buf->at = ' '; buf->(at + 1) = ' '; buf->(at + 2) = ' ';
+        retokenise = 1;
+    #ifdef TARGET_ZCODE;
+    } else if (word == 'el' && buf->1 < buf->0) {
+    #ifnot; ! TARGET_GLULX
+    } else if (word == 'el' && buf-->0 < INPUT_BUFFER_LEN) {
+    #endif; ! TARGET_
+        buf->at = '-'; buf->(at + 1) = 'l'; buf->(at + 2) = 'o';
+        #ifdef TARGET_ZCODE;
+        (buf->1)++;
+        #ifnot; ! TARGET_GLULX
+        (buf-->0)++;
+        #endif; ! TARGET_
+        retokenise = 1;
+    }
+
+    ! Corrige el poblema siguiente:
+    ! > SACA TODO
+    ! ¿De dónde quieres sacar esas cosas?
+    ! > DEL ARMARIO
+    ! [Aquí la tokenización quedaría: 'saca' 'todo' 'de' 'del' 'armario']
+    ! Lo que hacemos es poner un espacio en la 'd' de 'del', para
+    ! convertirlo en 'el', y así la tokenización quedaría:
+    ! 'saca' 'todo' 'de' 'el' 'armario'
+    for (x = 1: x <= tokenCount(pars): x++) {
+        word = tokenDict(pars, x);
+        at   = tokenPos(pars, x);
+        len  = tokenLen(pars, x);
+        if (word == 'de' && x < tokenCount(pars)) {
+            siguiente = tokenDict(pars, x + 1);
+            if (siguiente == 'del') {
+                at = tokenPos(pars, x + 1);
+                buf->at = ' '; ! Ponemos un ' ' encima de la 'd' de 'del'
+                retokenise = 1;
+                break;
+            }
+        }
+    }
+
+    ! Corrige el problema del uso de reflexivos, tipo:
+    ! > EXAMINATE A TI MISMO
+    ! > EXAMINATE A TI
+    for (x = 1: x <= tokenCount(pars): x++) {
+        word = tokenDict(pars, x);
+        at   = tokenPos(pars, x);
+        len  = tokenLen(pars, x);
+        if (word == ME1__WD or ME2__WD or ME3__WD && x < tokenCount(pars)) {
+            siguiente = tokenDict(pars, x + 1);
+            at = tokenPos(pars, x + 1);
+            if (siguiente == 'a//' && (x + 1) < tokenCount(pars)) {
+                siguiente = tokenDict(pars, x + 2);
+                if (((word == ME1__WD && siguiente == 'mi') ||
+                    (word == ME2__WD && siguiente == 'ti') ||
+                    (word == ME3__WD && siguiente == 'si'))) {
+                    if ((x + 2) < tokenCount(pars)) {
+                        siguiente = tokenDict(pars, x + 3);
+                        retokenise = 1;
+                        if (siguiente == 'mismo') {
+                            ! Hay que borrar tres palabras:
+                            for (i = at: i < tokenPos(pars, x + 3) + tokenLen(pars, x + 3): i++) {
+                                buf->i = ' ';
+                            }
+                        } else {
+                            ! Hay que borrar dos palabras:
+                            for (i = at: i < tokenPos(pars, x + 3) - 1: i++) {
+                                buf->i = ' ';
+                            }
+                        }
+                        break;
+                    } else {
+                        ! No hay más palabras; se queda en "-te a ti":
+                        for (i = at: i < tokenPos(pars, x + 2) + tokenLen(pars, x + 2): i++) {
+                            buf->i = ' ';
+                        }
+                        retokenise = 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     if (parser_trace>=7){
        print "Buffer traducido a informese: ^|";
         ImprimeTodoElBuffer(buf);
