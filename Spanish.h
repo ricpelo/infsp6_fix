@@ -1846,7 +1846,9 @@ Constant PARTICULA_TE  = "te";
     !   4: Exito
     switch(n)
     {
-     1: "Para dejar ", (the)x1, " deberías tener", (lo) x1, ".";
+     1: if (x1 has animate)
+          "Para dejar ", (al)x1, " deberías tener", (lo) x1, ".";
+        "Para dejar ", (the)x1, " deberías tener", (lo) x1, ".";
      2: "No ", (lo) x1, " tienes.";
      3: "(primero te quitas ", (the) x1, ")";
      4: "Dejad", (o) x1, ".";
