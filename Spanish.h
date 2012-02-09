@@ -2446,7 +2446,10 @@ Constant PARTICULA_TE  = "te";
     ! Si hay palabras no comprendidas entre el name del PNJ y
     ! la comma, como p.ej: PEPE XADASDGG, SALTA
 
-     26: "(primero tratas de ", (coge)"r ", (the) x1, ")"; ! infsp I6
+     26: print "(primero tratas de ", (coge)"r ";
+         if (x1 has animate) print (al) x1;
+         else                print (the) x1;
+         ")"; ! infsp I6
 
     ! Si la gramática especifica que una acción debe efectuarse
     ! sobre un objeto en poder del player (token "held"), pero el
