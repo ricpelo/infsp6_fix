@@ -389,6 +389,7 @@
             return k;
         }
         if (k == 0) jump NoWordsMatch;
+        wn = j;
     }
 
     ! The default algorithm is simply to count up how many words pass the
