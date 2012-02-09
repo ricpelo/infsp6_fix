@@ -248,9 +248,9 @@
         artval=(o.&articles)-->(acode+short_name_case*LanguageCases);
         if (artval) { ! infsp hack para admitir valor 0 en slot de 'articles' property.
          if (capitalise)
-            print (Cap) artval;
+            print (Cap) artval, " ";
          else
-            print (string) artval;
+            print (string) artval, " ";
         }
         if (pluralise) return;
         print (PSN__) o; return;
