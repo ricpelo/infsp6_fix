@@ -968,10 +968,12 @@ Verb meta 'xlista'
 
 Include "INFSPR"; ! [INFSP] Inform Parser Replacement/Hack File
 
-
 #Ifdef INFIX;
  #Include "infix";
 #Endif;
+
+Default d_obj NULL;
+Default u_obj NULL;
 
 ! ==============================================================================
 
