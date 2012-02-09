@@ -2811,7 +2811,10 @@ Constant PARTICULA_TE  = "te";
   !   3: Si intenta empujar hacia arriba o hacia abajo
     switch(n)
     {
-     1: "No creo que empujar ", (the) x1, " sirva para nada.";
+     1: print "No creo que empujar ";
+        if (x1 has animate) print (al) x1;
+        else                print (el) x1;
+        " sirva para nada.";
      2: "Eso no es una dirección.";
      3: "No, no puedes en esa dirección.";
     }
