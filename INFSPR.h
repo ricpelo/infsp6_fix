@@ -28,6 +28,7 @@
 !                   Indefart                  SP PATCH        
 !                   CInDefArt                 SP PATCH        
 !                   Parser__parse             SP PATCH       
+!                   ReviseMulti               SP PATCH       
 
 
 ! Definicion de bufferaux y parseraux, usados en DictionaryLookup [001115]
@@ -1681,6 +1682,50 @@
 
 ]; ! end of Parser__parse
 
+! ====================================================
+! Usamos TestScope en lugar de ScopeCeiling
+!
+[ ReviseMulti second_p  i low;
+    #Ifdef DEBUG;
+    if (parser_trace >= 4) print "   Revising multiple object list of size ", multiple_object-->0,
+      " with 2nd ", (name) second_p, "^";
+    #Endif; ! DEBUG
+
+    if (multi_context == MULTIEXCEPT_TOKEN or MULTIINSIDE_TOKEN) {
+        for (i=1,low=0 : i<=multiple_object-->0 : i++) {
+            if ( (multi_context==MULTIEXCEPT_TOKEN && multiple_object-->i ~= second_p) ||
+                 (multi_context==MULTIINSIDE_TOKEN && multiple_object-->i in second_p)) {
+                low++;
+                multiple_object-->low = multiple_object-->i;
+            }
+        }
+        multiple_object-->0 = low;
+    }
+
+    if (multi_context == MULTI_TOKEN && action_to_be == ##Take) {
+        for (i=1,low=0 : i<=multiple_object-->0 : i++)
+            if (TestScope(multiple_object-->i, actor)) low++;
+        #Ifdef DEBUG;
+        if (parser_trace >= 4) print "   Token 2 plural case: number with actor ", low, "^";
+        #Endif; ! DEBUG
+        if (take_all_rule == 2 || low > 0) {
+            for (i=1,low=0 : i<=multiple_object-->0 : i++) {
+                if (TestScope(multiple_object-->i, actor)) {
+                    low++;
+                    multiple_object-->low = multiple_object-->i;
+                }
+            }
+            multiple_object-->0 = low;
+        }
+    }
+
+    i = multiple_object-->0;
+    #Ifdef DEBUG;
+    if (parser_trace >= 4) print "   Done: new size ", i, "^";
+    #Endif; ! DEBUG
+    if (i == 0) return NOTHING_PE;
+    return 0;
+];
 
 ! ------------------------------------
 ! Verlib Replace Section

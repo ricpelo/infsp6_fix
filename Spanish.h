@@ -39,6 +39,7 @@ Replace CInDefArt;
 Replace BestGuess;
 Replace NounDomain;
 Replace Parser__parse;
+Replace ReviseMulti;
 
 
 ! ---------------------------------------------------------------------------
