@@ -2771,7 +2771,7 @@ Property persona alias number;
       1: print (_Tienes_) " que ";
          if (x1 has supporter) print "bajar", (te_) " "; else print "salir ";
          print_ret (del) x1, " antes.";
-      2: "No pued", (es__) " ir por ahí.";
+      2: "No ", (puedes_) " ir por ahí.";
       3: "", (_Eres_) " incapaz de trepar por ", (the) x1, ".";
       4: "", (_Eres_) " incapaz de bajar por ", (the) x1, ".";
       5: "No ", (puedes_) " pasar a través ", (del) x1, ".";
