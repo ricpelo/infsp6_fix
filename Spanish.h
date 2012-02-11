@@ -2010,7 +2010,7 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ _o_ x; ! Ya existe una rutina llamada o_
+[ as_ x;
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "an";
@@ -2028,7 +2028,7 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ o__ x;
+[ o__ x; ! Ya existe una rutina llamada o_
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "en";
@@ -2064,14 +2064,6 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ as__ x;
-  if (player provides persona && player.persona & PRIMERA_PERSONA) {
-    print "a", (string) x;
-  } else {
-    print (_es_) x;
-  }
-];
-
 [ oy_ x;
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
@@ -2090,7 +2082,7 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ as_ x;
+[ as__ x;
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "án";
@@ -2514,15 +2506,15 @@ Property persona alias number;
   print (string) x;
 ];
 
-!                                                  *                                           *
-! ti_       te_  tu_      _o_    o__   _es_  es__  as__   oy_   as_   a_    eo_   e_     os_   i_      z_   ia_    ues_
+!                                                                                       *
+! ti_       te_  tu_      as_    o__   _es_  es__  oy_   as__  a_    eo_   e_     os_   i_      z_   ia_    ues_
 ! _______________________________________________________________________________________________________________________
-! mí        me   mi       o      o     o     o     a      oy    é     a     eo    e      o     í       z    ía     o
-! ti        te   tu       as     es    es    es    es     ás    ás    as    es    as     o     iste    z    ías    ues
-! sí        le   su       a      e     e     e     e      a     á     a     e     a      o     ió      z    ía     ue
-! nosotros  nos  nuestro  amos   emos  imos  emos  imos   amos  emos  amos  emos  emos   os    imos    ces  íamos  uimos
-! vosotros  os   vuestro  áis    éis   ís    eís   áis    áis   éis   áis   éis   abéis  os    ísteis  ces  íais   uís
-! ellos     les  su       an     en    en    en    an     án    án    an    en    an     os    ieron   ces  ían    uen
+! mí        me   mi       o      o     o     o     oy    é     a     eo    e      o     í       z    ía     o
+! ti        te   tu       as     es    es    es    ás    ás    as    es    as     o     iste    z    ías    ues
+! sí        le   su       a      e     e     e     a     á     a     e     a      o     ió      z    ía     ue
+! nosotros  nos  nuestro  amos   emos  imos  emos  amos  emos  amos  emos  emos   os    imos    ces  íamos  uimos
+! vosotros  os   vuestro  áis    éis   ís    eís   áis   éis   áis   éis   abéis  os    ísteis  ces  íais   uís
+! ellos     les  su       an     en    en    en    án    án    an    en    an     os    ieron   ces  ían    uen
 !
 ! Las rutinas marcadas con asterisco (*) no están siendo usadas actualmente.
 !
@@ -2566,11 +2558,11 @@ Property persona alias number;
                   #Endif; ! TARGET_
                 }
   Consult:  "No descubr", (_es_) " nada interesante en ", (the) x1, " sobre ese tema.";
-  Cut:      "Cortándo", (lo) x1, " no lograr", (as_) " gran cosa.";
+  Cut:      "Cortándo", (lo) x1, " no lograr", (as__) " gran cosa.";
   Dig:      "Excavar no servirá de nada aquí.";
   Disrobe:   switch (n) {
-               1: "No llev", (_o_) " puesto eso.";
-               2: print_ret (_Te_) " quit", (_o_) " ", (the) x1, ".";
+               1: "No llev", (as_) " puesto eso.";
+               2: print_ret (_Te_) " quit", (as_) " ", (the) x1, ".";
     }
   Drink:    "Eso no parece potable.";
   Drop:
@@ -2588,7 +2580,7 @@ Property persona alias number;
           "Para dejar ", (al) x1, " deberí", (a_) " tener", (lo) x1, ".";
         "Para dejar ", (the) x1, " deberí", (a_) " tener", (lo) x1, ".";
      2: "No ", (lo) x1, " ", (tienes_) ".";
-     3: "(primero ", (te_) "quit", (_o_) " ", (the) x1, ")";
+     3: "(primero ", (te_) "quit", (as_) " ", (the) x1, ")";
      4: "Dejad", (o) x1, ".";
     }
   Eat:
@@ -2670,14 +2662,14 @@ Property persona alias number;
       4: print "No ", (puedes_) " "; LanguageVerb(verb_word);
          " ahí mientras no lo ", (sueltes_) ".";
       5: if (x1 has supporter) print "Sub", (_es_) " ", (al) x1;
-         else                  print "Entr", (_o_) " en ", (the) x1;
+         else                  print "Entr", (as_) " en ", (the) x1;
          ".";
-      6: if (x1 has supporter) print "(", (te_) " baj", (_o_) " ";
+      6: if (x1 has supporter) print "(", (te_) " baj", (as_) " ";
          else                  print "(", (sales_)  " ";
          print (del) x1; ")";
       7: if (x1 has supporter) "(", (te_) " sub", (_es_) " ", (al) x1, ")^";
          if (x1 has container) "(", (te_) " met", (es__) " en ", (the) x1, ")^";
-         "(entr", (_o_) " en ", (the) x1, ")^";
+         "(entr", (as_) " en ", (the) x1, ")^";
     }
     
   Examine:
@@ -2689,7 +2681,7 @@ Property persona alias number;
     !     este mensaje para indicar si está apagado o encendido.
     switch (n) {
       1: "Está demasiado oscuro, no ", (puedes_) " ver nada.";
-      2: "No observ", (_o_) " nada especial en ", (the) x1, ".";
+      2: "No observ", (as_) " nada especial en ", (the) x1, ".";
       3: print (The) x1, " ", (esta) x1;
          if (x1 has on) " encendid", (o)x1, ".";
          else " apagad", (o)x1,".";
@@ -2707,7 +2699,7 @@ Property persona alias number;
       1: print "No est", (oy_) " en ningún sitio del que deb", (a_) " ";
          LanguageVerb(verb_word); ".";
       2: "No ", (puedes_) " salir ", (del) x1, " porque está cerrad", (o)x1, ".";
-      3: if (x1 has supporter) print "Baj", (_o_) " ";
+      3: if (x1 has supporter) print "Baj", (as_) " ";
          else                  print (_Sales_) " ";
          print_ret (del) x1, ".";
      4:  print "Pero es que no est", (oy_) " ";
@@ -2754,7 +2746,7 @@ Property persona alias number;
     ! como parte de su rutina Vida]
     switch (n) {
       1: "No ", (tienes_) " ", (the) x1, ".";
-      2: "Manose", (_o_) " ", (the) x1,
+      2: "Manose", (as_) " ", (the) x1,
          " un ratito, pero no consigu", (_es_) " gran cosa.";
       3: print_ret (The) x1, " no parece", (n) x1, " interesad", (o)x1, ".";
     }
@@ -2809,7 +2801,7 @@ Property persona alias number;
     switch (n) {
       1: if (x1 has animate) "Antes tendrí", (a_) " que ", (coge)"rl", (o) x1,
                              " y no sé si se dejará",(n)x1,".";
-         else                "Necesit", (_o_) " tener ", (the) x1,
+         else                "Necesit", (as_) " tener ", (the) x1,
                              " para poder meter", (lo) x1,
                              " donde sea.";
       2: "No se pueden meter cosas dentro ", (del) x1, ".";
@@ -2829,15 +2821,15 @@ Property persona alias number;
     !     generada por la librería
     !  3 y 4: [6/11]
     switch (n) {
-      1: "No llev", (_o_) " nada.";
-      2: print "Llev", (_o_) ":";
+      1: "No llev", (as_) " nada.";
+      2: print "Llev", (as_) ":";
       3: print ":^";
       4: print ".^";
     }
-  Jump:          "Salt", (_o_) " en el sitio, sin ningún resultado.";
-  JumpOver, Tie: "No lograr", (as_) " nada así.";
+  Jump:          "Salt", (as_) " en el sitio, sin ningún resultado.";
+  JumpOver, Tie: "No lograr", (as__) " nada así.";
   Kiss:          "No creo que deb", (a_) ".";
-  Listen:        "No escuch", (_o_) " nada fuera de lo común.";
+  Listen:        "No escuch", (as_) " nada fuera de lo común.";
   ListMiscellany:
     ! Los siguientes mensajes se muestran como aclaraciones cuando se
     ! está listando el inventario del jugador, o los objetos que hay
@@ -2959,11 +2951,11 @@ Property persona alias number;
                      " con llave.";
          else
            print_ret (The) x1, " ya tiene",(n) x1, " echado el cerrojo.";
-      3: "Primero tendr", (as_) " que cerrar ", (the) x1, ".";
+      3: "Primero tendr", (as__) " que cerrar ", (the) x1, ".";
       4: if (second) "No parece", (n) x1, " encajar en la cerradura.";
-         "Necesit", (_o_) " algún tipo de llave.";
+         "Necesit", (as_) " algún tipo de llave.";
       5: if (second) "", (_Cierras_) " ", (the) x1, " con ", (the) second, ".";
-         "Ech", (_o_) " el cerrojo ", (al) x1, ".";
+         "Ech", (as_) " el cerrojo ", (al) x1, ".";
     }
 
   Look:
@@ -3015,7 +3007,7 @@ Property persona alias number;
                          + PARTINV_BIT + TERSE_BIT + CONCEAL_BIT);
            if (x1 ~= location) ".";
            ".";
-      7:   "No observ", (_o_) " nada digno de mención al mirar hacia ", (the) x1, ".";![6/11] ! ELIUK: sobraba el "más"
+      7:   "No observ", (as_) " nada digno de mención al mirar hacia ", (the) x1, ".";![6/11] ! ELIUK: sobraba el "más"
       8:   if (x1 has supporter) print " (sobre "; else print " (en "; ! added in 6/11N 4U65
            print (the) x1, ")";
     }
@@ -3165,7 +3157,7 @@ Property persona alias number;
     ! Si hay palabras no comprendidas entre el name del PNJ y
     ! la comma, como p.ej: PEPE XADASDGG, SALTA
 
-     26: print "(primero trat", (_o_) " de ", (coge) "r ";
+     26: print "(primero trat", (as_) " de ", (coge) "r ";
          if (x1 has animate) print (al) x1;
          else                print (the) x1;
          ")"; ! infsp I6
@@ -3282,7 +3274,7 @@ Property persona alias number;
          ! Modificado en [020621] para dar un mensaje más coherente
          ! si el player tiene algún objeto en su inventario.
        if (action_to_be == ##Drop) {
-         print "¡Pero si no llev", (_o_) " nada";
+         print "¡Pero si no llev", (as_) " nada";
          if (children (player))
            " de eso!";
          else
@@ -3561,15 +3553,15 @@ Property persona alias number;
            "Antes tendr", (ia_) " que", (coge) "rl", (o) x1, ", y no ",
            (_se_) " si se dejará", (n) x1, ".";
           else
-            "Necesit", (_o_) " tener ", (the) x1, " para poder poner",
+            "Necesit", (as_) " tener ", (the) x1, " para poder poner",
             (lo) x1, " donde sea.";
       2: "No ", (puedes_) " poner un objeto sobre sí mismo.";
       3: "Poner cosas sobre ", (the) x1, " no servirá de nada.";
       4: "", (_Te_) " falta destreza.";
-      5: "(primero ", (se_) " ", (lo) x1, " quit", (_o_) ")^";
+      5: "(primero ", (se_) " ", (lo) x1, " quit", (as_) ")^";
       6: "No queda sitio en ", (the) x1, " para poner nada más.";
       7: "Hecho.";
-      8: "Coloc", (_o_) " ", (the) x1, " sobre ", (the) second, ".";
+      8: "Coloc", (as_) " ", (the) x1, " sobre ", (the) second, ".";
     }
    
   Quit:
@@ -3706,7 +3698,7 @@ Property persona alias number;
      2: print_ret (The) x1, " no muestra", (n) x1, " interés.";
     }
     
-  Sing:  "Cant", (_o_) " fatal.";
+  Sing:  "Cant", (as_) " fatal.";
   Sleep: "No est", (oy_) " especialmente somnolient", (o) player, ".";
   Smell: "No huel", (es__) " nada extraño.";
   Sorry: "Oh, no es necesario que te disculpes.";
@@ -3735,7 +3727,7 @@ Property persona alias number;
     switch(n) {
       1: print_ret "No es algo que pueda apagarse.";
       2: print_ret "Ya estaba", (n) x1, " apagad", (o) x1, ".";
-      3: "Apag", (_o_) " ", (the) x1, ".";
+      3: "Apag", (as_) " ", (the) x1, ".";
     }
 
   SwitchOn:
@@ -3801,12 +3793,12 @@ Property persona alias number;
        9: print_ret (The) x1, " no ", (esta) x1, " abiert", (o) x1, ".";
       10: "Difícilmente podr", (ia_) " llevar", (se_) " eso.";
       11: print_ret (The) x1, " está fij", (o) x1, " en el sitio.";
-      12: "Ya llev", (_o_) " demasiadas cosas.";
-      13: "(coloc", (_o_) " ", (the) x1, " en ", (the) SACK_OBJECT,
+      12: "Ya llev", (as_) " demasiadas cosas.";
+      13: "(coloc", (as_) " ", (the) x1, " en ", (the) SACK_OBJECT,
           " para hacer sitio)";
     }
 
-  Taste: "No sabore", (_o_) " nada inesperado.";
+  Taste: "No sabore", (as_) " nada inesperado.";
   
   Tell:
     ! Dos casos:
@@ -3817,7 +3809,7 @@ Property persona alias number;
     ! [Los errores de parser se tratan en la sección "Miscelanea" de
     ! esta rutina, al final]
     switch (n) {
-      1: "Habl", (_o_) " sol", (o) player, " durante un rato.";
+      1: "Habl", (as_) " sol", (o) player, " durante un rato.";
       2: "No h", (e_) " provocado ninguna reacción.";
     }
     
@@ -3828,7 +3820,7 @@ Property persona alias number;
     !  2: Lanzar cosas a objetos animados
     switch (n) {
       1: "No serviría de nada.";
-      2: "En el último momento ", (se_) " ech", (_o_) " atrás.";
+      2: "En el último momento ", (se_) " ech", (as_) " atrás.";
     }
 
 ! Tie:  see JumpOver.
@@ -3839,7 +3831,7 @@ Property persona alias number;
     !  3: Tocarse a si mismo
     switch (n) {
       1: "¡Las manos quietas!";
-      2: "No not", (_o_) " nada extraño al tacto.";
+      2: "No not", (as_) " nada extraño al tacto.";
       3: "Si crees que eso servirá de algo...";
     }
 ! Turn: see Pull.
@@ -3862,9 +3854,9 @@ Property persona alias number;
       1: "No parece", (n) x1," tener ningún tipo de cerrojo.";
       2: print_ret (The) x1, " ya tenía", (n) x1, " abierto el cerrojo.";
       3: if (second) "No parece", (n) x1, " encajar en la cerradura.";
-         "Necesit", (_o_) " algún tipo de llave.";
-      4: if (second) "Quit", (_o_) " el cerrojo ", (al) x1, " con ", (the) second, ".";
-         "Quit", (_o_) " el cerrojo ", (al) x1, ".";
+         "Necesit", (as_) " algún tipo de llave.";
+      4: if (second) "Quit", (as_) " el cerrojo ", (al) x1, " con ", (the) second, ".";
+         "Quit", (as_) " el cerrojo ", (al) x1, ".";
     }
 
  VagueGo: ! El jugador ha dicho IR sin especificar a dónde
@@ -3901,7 +3893,7 @@ Property persona alias number;
     switch (n) {
       1: "¡No ", (puedes_) " ponerte eso!";
       2: "No ", (lo) x1, " ", (tienes_) ".";
-      3: "¡Ya ", (lo) x1, " llev", (_o_) " puest", (o) x1, "!.";
+      3: "¡Ya ", (lo) x1, " llev", (as_) " puest", (o) x1, "!.";
       4: "", (_Te_) " ", (pones_) " ", (the) x1, ".";
     }
 ! Yes:  see No.
