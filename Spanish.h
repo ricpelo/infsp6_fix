@@ -2514,15 +2514,15 @@ Property persona alias number;
   print (string) x;
 ];
 
-!                                            *                                           *
-! ti_       te_  tu_      _o_    _es_  es__  as__   oy_   as_   a_    eo_   e_     os_   i_      z_   ia_    ues_
-! ________________________________________________________________________________________________________________
-! mí        me   mi       o      o     o     a      oy    é     a     eo    e      o     í       z    ía    o
-! ti        te   tu       as     es    es    es     ás    ás    as    es    as     o     iste    z    ías   ues
-! sí        le   su       a      e     e     e      a     á     a     e     a      o     ió      z    ía    ue
-! nosotros  nos  nuestro  amos   imos  emos  imos   amos  emos  amos  emos  emos   os    imos    ces  íamos uimos
-! vosotros  os   vuestro  áis    ís    eís   áis    áis   éis   áis   éis   abéis  os    ísteis  ces  íais  uís
-! ellos     les  su       an     en    en    an     án    án    an    en    an     os    ieron   ces  ían   uen
+!                                                  *                                           *
+! ti_       te_  tu_      _o_    o__   _es_  es__  as__   oy_   as_   a_    eo_   e_     os_   i_      z_   ia_    ues_
+! _______________________________________________________________________________________________________________________
+! mí        me   mi       o      o     o     o     a      oy    é     a     eo    e      o     í       z    ía     o
+! ti        te   tu       as     es    es    es    es     ás    ás    as    es    as     o     iste    z    ías    ues
+! sí        le   su       a      e     e     e     e      a     á     a     e     a      o     ió      z    ía     ue
+! nosotros  nos  nuestro  amos   emos  imos  emos  imos   amos  emos  amos  emos  emos   os    imos    ces  íamos  uimos
+! vosotros  os   vuestro  áis    éis   ís    eís   áis    áis   éis   áis   éis   abéis  os    ísteis  ces  íais   uís
+! ellos     les  su       an     en    en    en    an     án    án    an    en    an     os    ieron   ces  ían    uen
 !
 ! Las rutinas marcadas con asterisco (*) no están siendo usadas actualmente.
 !
