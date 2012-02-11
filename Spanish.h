@@ -2064,7 +2064,7 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ as_ x;
+[ as__ x;
   if (player provides persona && player.persona & PRIMERA_PERSONA) {
     print "a", (string) x;
   } else {
@@ -2090,7 +2090,7 @@ Property persona alias number;
   print (string) x;
 ];
 
-[ _as_ x;  ! ás
+[ as_ x;
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "án";
@@ -2514,14 +2514,18 @@ Property persona alias number;
   print (string) x;
 ];
 
-! ti_       te_  tu_      _o_    _es_  es__  as_   oy_   _as_  a_    eo_   e_     os_   i_      z_   ia_    ues_
+!                                            *                                           *
+! ti_       te_  tu_      _o_    _es_  es__  as__   oy_   as_   a_    eo_   e_     os_   i_      z_   ia_    ues_
 ! ________________________________________________________________________________________________________________
-! mí        me   mi       o      o     o     a     oy    é     a     eo    e      o     í       z    ía    o
-! ti        te   tu       as     es    es    es    ás    ás    as    es    as     o     iste    z    ías   ues
-! sí        le   su       a      e     e     e     a     á     a     e     a      o     ió      z    ía    ue
-! nosotros  nos  nuestro  amos   imos  emos  imos  amos  emos  amos  emos  emos   os    imos    ces  íamos uimos
-! vosotros  os   vuestro  áis    ís    eís   áis   áis   éis   áis   éis   abéis  os    ísteis  ces  íais  uís
-! ellos     les  su       an     en    en    an    án    án    an    en    an     os    ieron   ces  ían   uen
+! mí        me   mi       o      o     o     a      oy    é     a     eo    e      o     í       z    ía    o
+! ti        te   tu       as     es    es    es     ás    ás    as    es    as     o     iste    z    ías   ues
+! sí        le   su       a      e     e     e      a     á     a     e     a      o     ió      z    ía    ue
+! nosotros  nos  nuestro  amos   imos  emos  imos   amos  emos  amos  emos  emos   os    imos    ces  íamos uimos
+! vosotros  os   vuestro  áis    ís    eís   áis    áis   éis   áis   éis   abéis  os    ísteis  ces  íais  uís
+! ellos     les  su       an     en    en    an     án    án    an    en    an     os    ieron   ces  ían   uen
+!
+! Las rutinas marcadas con asterisco (*) no están siendo usadas actualmente.
+!
 
 [ LanguageLM n x1;
 ! Answer: "", (The) second , " no ", (te_) " responde."; ! esto sera sólo para I6?
@@ -2562,7 +2566,7 @@ Property persona alias number;
                   #Endif; ! TARGET_
                 }
   Consult:  "No descubr", (_es_) " nada interesante en ", (the) x1, " sobre ese tema.";
-  Cut:      "Cortándo", (lo) x1, " no lograr", (_as_) " gran cosa.";
+  Cut:      "Cortándo", (lo) x1, " no lograr", (as_) " gran cosa.";
   Dig:      "Excavar no servirá de nada aquí.";
   Disrobe:   switch (n) {
                1: "No llev", (_o_) " puesto eso.";
@@ -2831,7 +2835,7 @@ Property persona alias number;
       4: print ".^";
     }
   Jump:          "Salt", (_o_) " en el sitio, sin ningún resultado.";
-  JumpOver, Tie: "No lograr", (_as_) " nada así.";
+  JumpOver, Tie: "No lograr", (as_) " nada así.";
   Kiss:          "No creo que deb", (a_) ".";
   Listen:        "No escuch", (_o_) " nada fuera de lo común.";
   ListMiscellany:
@@ -2955,7 +2959,7 @@ Property persona alias number;
                      " con llave.";
          else
            print_ret (The) x1, " ya tiene",(n) x1, " echado el cerrojo.";
-      3: "Primero tendr", (_as_) " que cerrar ", (the) x1, ".";
+      3: "Primero tendr", (as_) " que cerrar ", (the) x1, ".";
       4: if (second) "No parece", (n) x1, " encajar en la cerradura.";
          "Necesit", (_o_) " algún tipo de llave.";
       5: if (second) "", (_Cierras_) " ", (the) x1, " con ", (the) second, ".";
