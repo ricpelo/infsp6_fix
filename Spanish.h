@@ -1882,54 +1882,693 @@ Constant ARE2__TX      = "ves ";
 Constant YOU__TX       = "Tú";
 Constant PARTICULA_TE  = "te";
 
-[ LanguageLM n x1;
- ! Answer:   " ",(The) second , " no te responde."; ! esto sera sólo para I6?
-  Answer, Ask : "No hay respuesta.";
- ! Ask:      " ",(The) x1 , " no te responde.";
- ! Ask:      see Answer
-  Attack:    "La violencia no es la solución.";
-  Blow:      "Tu soplido no produce ningún efecto.";
-  Burn:      "Con esa peligrosa acción no lograrías nada.";
-  Buy:       "No hay nada en venta.";
-  Climb:     "No creo que vayas a lograr nada así.";
-  Close:    switch(n)    {
-     1: print_ret "No es algo que pueda cerrarse.";
-     2: "Ya estaba", (n) x1, " cerrad", (o)x1, ".";
-     3: "Cierras ", (the) x1, ".";
-    }
+Constant PRIMERA_PERSONA  = $$00001;
+Constant SEGUNDA_PERSONA  = $$00010;
+Constant TERCERA_PERSONA  = $$00100;
+Constant PERSONA_SINGULAR = $$01000;
+Constant PERSONA_PLURAL   = $$10000;
 
+Property persona;
+
+[ te_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "les";
+      else                                 print "le";
+    } else if (player.persona & PRIMERA_PERSONA){
+      if (player.persona & PERSONA_PLURAL) print "nos";
+      else                                 print "me";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "os";
+      else                                 print "te";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "te";
+  }
+  print (string) x;
+];
+
+[ se_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "se";
+      else                                 print "se";
+    } else if (player.persona & PRIMERA_PERSONA){
+      if (player.persona & PERSONA_PLURAL) print "nos";
+      else                                 print "me";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "os";
+      else                                 print "te";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "te";
+  }
+  print (string) x;
+];
+
+[ ti_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "ellos";
+      else                                 print "sí";
+    } else if (player.persona & PRIMERA_PERSONA){
+      if (player.persona & PERSONA_PLURAL) print "nosotros";
+      else                                 print "mí";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "vosotros";
+      else                                 print "ti";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "ti";
+  }
+  print (string) x;
+];
+
+[ _Te_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Les";
+      else                                 print "Le";
+    } else if (player.persona & PRIMERA_PERSONA){
+      if (player.persona & PERSONA_PLURAL) print "Nos";
+      else                                 print "Me";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Os";
+      else                                 print "Te";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Te";
+  }
+  print (string) x;
+];
+
+[ tu_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "su";
+      else                                 print "su";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) {
+        print "nuestr"; if (player has female) print "a"; else print "o";
+      } else {
+        print "mi";
+      }
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) {
+        print "vuestr"; if (player has female) print "a"; else print "o";
+      } else {
+        print "tu";
+      }
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "tu";
+  }
+  print (string) x;
+];
+
+[ _Tu_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Su";
+      else                                 print "Su";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) {
+        print "Nuestr"; if (noun has female) print "a"; else print "o";
+      } else {
+        print "Mi";
+      }
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) {
+        print "Vuestr"; if (noun has female) print "a"; else print "o";
+      } else {
+        print "Tu";
+      }
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Tu";
+  }
+  print (string) x;
+];
+
+[ _o_ x; ! Ya existe una rutina llamada o_
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "an";
+      else                                 print "a";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "amos";
+      else                                 print "o";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "áis";
+      else                                 print "as";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "as";
+  }
+  print (string) x;
+];
+
+[ o__ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "en";
+      else                                 print "e";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "emos";
+      else                                 print "o";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "éis";
+      else                                 print "es";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "es";
+  }
+  print (string) x;
+];
+
+[ a_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "an";
+      else                                 print "a";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "amos";
+      else                                 print "a";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "áis";
+      else                                 print "as";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "as";
+  }
+  print (string) x;
+];
+
+[ as_ x;
+  if (player provides persona && player.persona & PRIMERA_PERSONA) {
+    print "a", (string) x;
+  } else {
+    print (_es_) x;
+  }
+];
+
+[ oy_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "an";
+      else                                 print "a";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "amos";
+      else                                 print "oy";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "áis";
+      else                                 print "ás";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "ás";
+  }
+  print (string) x;
+];
+
+[ _as_ x;  ! ás
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "án";
+      else                                 print "á";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "emos";
+      else                                 print "é";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "éis";
+      else                                 print "ás";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "ás";
+  }
+  print (string) x;
+];
+
+[ _es_ x; ! Ya existe una rutina llamada 'es'
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "en";
+      else                                 print "e";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "imos";
+      else                                 print "o";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "ís";
+      else                                 print "es";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "es";
+  }
+  print (string) x;
+];
+
+[ es__ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "en";
+      else                                 print "e";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "emos";
+      else                                 print "o";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "eís";
+      else                                 print "es";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "es";
+  }
+  print (string) x;
+];
+
+[ e_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "an";
+      else                                 print "a";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "emos";
+      else                                 print "e";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "abeís";
+      else                                 print "as";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "as";
+  }
+  print (string) x;
+];
+
+[ i_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "ieron";
+      else                                 print "ió";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "imos";
+      else                                 print "í";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "ísteis";
+      else                                print "iste";
+    }
+  } else { ! Por defecto, primera persona del singular
+    print "í";
+  }
+  print (string) x;
+];
+
+[ eo_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "en";
+      else                                 print "e";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "emos";
+      else                                 print "eo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "éis";
+      else                                 print "es";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "es";
+  }
+  print (string) x;
+];
+
+[ ia_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "ían";
+      else                                 print "ía";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "íamos";
+      else                                 print "ía";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "íais";
+      else                                 print "ías";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "ías";
+  }
+  print (string) x;
+];
+
+[ sales_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "salen";
+      else                                 print "sale";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "salimos";
+      else                                 print "salgo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "salís";
+      else                                 print "sales";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "sales";
+  }
+  print (string) x;
+];
+
+[ _Sales_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Salen";
+      else                                 print "Sale";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Salimos";
+      else                                 print "Salgo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Salís";
+      else                                 print "Sales";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Sales";
+  }
+  print (string) x;
+];
+
+[ tienes_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "tienen";
+      else                                 print "tiene";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "tenemos";
+      else                                 print "tengo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "tenéis";
+      else                                 print "tienes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "tienes";
+  }
+  print (string) x;
+];
+
+[ _Tienes_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Tienen";
+      else                                 print "Tiene";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Tenemos";
+      else                                 print "Tengo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Tenéis";
+      else                                 print "Tienes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Tienes";
+  }
+  print (string) x;
+];
+
+[ sueltes_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "suelten";
+      else                                 print "suelte";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "soltemos";
+      else                                 print "suelte";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "soltéis";
+      else                                 print "sueltes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "sueltes";
+  }
+  print (string) x;
+];
+
+[ _Cierras_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Cierran";
+      else                                 print "Cierra";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Cerramos";
+      else                                 print "Cierro";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Cerráis";
+      else                                 print "Cierras";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Cierras";
+  }
+  print (string) x;
+];
+
+[ puedes_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "pueden";
+      else                                 print "puede";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "podemos";
+      else                                 print "puedo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "podéis";
+      else                                 print "puedes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "puedes";
+  }
+  print (string) x;
+];
+
+[ pones_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "ponen";
+      else                                 print "pone";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "ponemos";
+      else                                 print "pongo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "ponéis";
+      else                                 print "pones";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "pones";
+  }
+  print (string) x;
+];
+
+[ sientes_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "sienten";
+      else                                 print "siente";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "sentimos";
+      else                                 print "siento";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "sentís";
+      else                                 print "sientes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "sientes";
+  }
+  print (string) x;
+];
+
+[ encuentro_ x;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "encuentran";
+      else                                 print "encuentra";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "encontramos";
+      else                                 print "encuentro";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "encontráis";
+      else                                 print "encuentras";
+    }
+  } else { ! Por defecto, primera persona del singular
+    print "encuentro";
+  }
+  print (string) x;
+];
+
+[ _Puedes_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Pueden";
+      else                                 print "Puede";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Podemos";
+      else                                 print "Puedo";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Podéis";
+      else                                 print "Puedes";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Puedes";
+  }
+  print (string) x;
+];
+
+[ pueda_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "puedan";
+      else                                 print "pueda";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "podamos";
+      else                                 print "pueda";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "podáis";
+      else                                 print "puedas";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "puedas";
+  }
+  print (string) x;
+];
+
+[ ues_ x;
+  if (player provides persona && player.persona & PRIMERA_PERSONA) {
+    print "o", (string) x;
+  } else {
+    print "u", (_es_) x;
+  }
+];
+
+[ _se_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "saben";
+      else                                 print "sabe";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "sabemos";
+      else                                 print "sé";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "sabéis";
+      else                                 print "sabes";
+    }
+  } else { ! Por defecto, primera persona del singular
+    print "sé";
+  }
+  print (string) x;
+];
+
+[ eres_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "son";
+      else                                 print "es";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "somos";
+      else                                 print "soy";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "sois";
+      else                                 print "eres";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "eres";
+  }
+  print (string) x;
+];
+
+[ _Eres_ x;
+ if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Son";
+      else                                 print "Es";
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) print "Somos";
+      else                                 print "Soy";
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) print "Sois";
+      else                                 print "Eres";
+    }
+  } else { ! Por defecto, segunda persona del singular
+    print "Eres";
+  }
+  print (string) x;
+];
+
+[ os_ x;
+  if (player provides persona) {
+    if (player.persona & PERSONA_PLURAL) print "os";
+    else                                 print "o";
+  } else { ! Por defecto, singular
+    print "o";
+  }
+  print (string) x;
+];
+
+[ z_ x;
+  if (player provides persona) {
+    if (player.persona & PERSONA_PLURAL) print "ces";
+    else                                 print "z";
+  } else { ! Por defecto, singular
+    print "z";
+  }
+  print (string) x;
+];
+
+! ti_       te_  tu_      _o_    _es_  es__  as_   oy_   _as_  a_    eo_   e_     os_   i_      z_   ia_    ues_
+! ________________________________________________________________________________________________________________
+! mí        me   mi       o      o     o     a     oy    é     a     eo    e      o     í       z    ía    o
+! ti        te   tu       as     es    es    es    ás    ás    as    es    as     o     iste    z    ías   ues
+! sí        le   su       a      e     e     e     a     á     a     e     a      o     ió      z    ía    ue
+! nosotros  nos  nuestro  amos   imos  emos  imos  amos  emos  amos  emos  emos   os    imos    ces  íamos uimos
+! vosotros  os   vuestro  áis    ís    eís   áis   áis   éis   áis   éis   abéis  os    ísteis  ces  íais  uís
+! ellos     les  su       an     en    en    an    án    án    an    en    an     os    ieron   ces  ían   uen
+
+[ LanguageLM n x1;
+! Answer: "", (The) second , " no ", (te_) " responde."; ! esto sera sólo para I6?
+  Answer, Ask: "No hay respuesta.";
+! Ask:    "", (The) x1 , " no ", (te_) " responde.";
+! Ask:    see Answer
+  Attack: "La violencia no es la solución.";
+  Blow:   "", (_Tu_) " soplido no produce ningún efecto.";
+  Burn:   "Con esa peligrosa acción no lograrí", (a_) " nada.";
+  Buy:    "No hay nada en venta.";
+  Climb:  "No creo que vay", (a_) " a lograr nada así.";
+  Close:  switch (n) {
+            1: "No es algo que pueda cerrarse.";
+            2: "Ya estaba", (n) x1, " cerrad", (o) x1, ".";
+            3: "", (_Cierras_) " ", (the) x1, ".";
+          }
   CommandsOff: switch (n) { ![6/11]
-        1: "[Grabación de órdenes finalizada.]";
-        #Ifdef TARGET_GLULX;
-        2: "[Grabación de órdenes ya estaba finalizada.]";
-        #Endif; ! TARGET_
-    }
-  CommandsOn: switch (n) { ! [6/11]
-        1: "[Grabación de órdenes activada.]";
-        #Ifdef TARGET_GLULX;
-        2: "[Órdenes relanzadas.]";
-        3: "[Grabación de órdenes ya activada.]";
-        4: "[Fallo en la grabación de órdenes.]";
-        #Endif; ! TARGET_
-    }
+                 1: "[Grabación de órdenes finalizada.]";
+                 #Ifdef TARGET_GLULX;
+                 2: "[La grabación de órdenes ya estaba finalizada.]";
+                 #Endif; ! TARGET_
+               }
+  CommandsOn:  switch (n) { ! [6/11]
+                 1: "[Grabación de órdenes activada.]";
+                 #Ifdef TARGET_GLULX;
+                 2: "[Órdenes relanzadas.]";
+                 3: "[Grabación de órdenes ya activada.]";
+                 4: "[Fallo en la grabación de órdenes.]";
+                 #Endif; ! TARGET_
+               }
   CommandsRead: switch (n) { ! [6/11]
-        1: "[Relanzando acciones.]";
-        #Ifdef TARGET_GLULX;
-        2: "[Las órdenes ya están siendo relanzadas.]";
-        3: "[Fallo en la reejecución de órdenes: grabación en curso.]";
-        4: "[Fallo en la reejecución de órdenes.]";
-        5: "[Acciones ejecutadas: fin del proceso.]";
-        #Endif; ! TARGET_
-    }
-  Consult:  "No descubres nada interesante en ", (the) x1,
-              " sobre ese tema.";
-  Cut:      "Cortándo", (lo) x1, " no lograrás gran cosa.";
+                  1: "[Relanzando acciones.]";
+                  #Ifdef TARGET_GLULX;
+                  2: "[Las órdenes ya están siendo relanzadas.]";
+                  3: "[Fallo en la reejecución de órdenes: grabación en curso.]";
+                  4: "[Fallo en la reejecución de órdenes.]";
+                  5: "[Acciones ejecutadas: fin del proceso.]";
+                  #Endif; ! TARGET_
+                }
+  Consult:  "No descubr", (_es_) " nada interesante en ", (the) x1, " sobre ese tema.";
+  Cut:      "Cortándo", (lo) x1, " no lograr", (_as_) " gran cosa.";
   Dig:      "Excavar no servirá de nada aquí.";
-  Disrobe:    switch(n)    {
-     1: "No llevas puesto eso.";
-     2: "Te quitas ", (the) x1, ".";
+  Disrobe:   switch (n) {
+               1: "No llev", (_o_) " puesto eso.";
+               2: print_ret (_Te_) " quit", (_o_) " ", (the) x1, ".";
     }
-  Drink:       "Eso no parece potable.";
+  Drink:    "Eso no parece potable.";
   Drop:
     ! 2 mensajes de error, 1 aviso y 1 de éxito:
     !   1: Error, el objeto dejado no está en poder del jugador, pero
@@ -1940,13 +2579,12 @@ Constant PARTICULA_TE  = "te";
     !      puesta y la librería va a quitarsela automáticamente para
     !      poder dejarla.
     !   4: Exito
-    switch(n)
-    {
+    switch (n) {
      1: if (x1 has animate)
-          "Para dejar ", (al)x1, " deberías tener", (lo) x1, ".";
-        "Para dejar ", (the)x1, " deberías tener", (lo) x1, ".";
-     2: "No ", (lo) x1, " tienes.";
-     3: "(primero te quitas ", (the) x1, ")";
+          "Para dejar ", (al) x1, " deberí", (a_) " tener", (lo) x1, ".";
+        "Para dejar ", (the) x1, " deberí", (a_) " tener", (lo) x1, ".";
+     2: "No ", (lo) x1, " ", (tienes_) ".";
+     3: "(primero ", (te_) "quit", (_o_) " ", (the) x1, ")";
      4: "Dejad", (o) x1, ".";
     }
   Eat:
@@ -1955,10 +2593,9 @@ Constant PARTICULA_TE  = "te";
     !    cualquier cosa que tenga el atributo "comestible", pero la
     !    única acción que causa esto es que el objeto en cuestión
     !    desaparece del juego al ser comido]
-    switch(n)
-    {
-     1: "Eso es simplemente incomestible.";
-     2: "Te comes ", (the) x1, ". No está mal.";
+    switch (n) {
+      1: "Eso es simplemente incomestible.";
+      2: "", (_Te_) " com", (es__) " ", (the) x1, ". No está mal.";
     }
   EmptyT:
     ! 1: Error, el jugador intenta vaciar un objeto en otro que no es
@@ -1974,16 +2611,11 @@ Constant PARTICULA_TE  = "te";
     ! acción PonerSobre o Meter, según el segundo objeto sea soporte o
     ! recipiente. Por tanto los mensajes de éxito serán los de las
     ! acciones PonerSobre o Meter.
-    switch(n)
-    {
-      1:
-        print_ret (The) x1, " no puede tener cosas dentro.";
-      2:
-        print_ret (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
-      3:
-        print_ret (The) x1, " ya ", (esta) x1, " vací", (o)x1, ".";
-      4:
-        "No puedes vaciar un objeto sobre sí mismo."; ! [INFSP] antes usaba x1
+    switch (n) {
+      1: "", (The) x1, " no puede tener cosas dentro.";
+      2: "", (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
+      3: "", (The) x1, " ya ", (esta) x1, " vací", (o) x1, ".";
+      4: "No pued", (es__) " vaciar un objeto sobre sí mismo."; ! [INFSP] antes usaba x1
     }
   Enter: ! [infsp] GoIn (Meterse) se cambio por Enter.
     ! CUIDADO. La acción Meterse se genera en muy diversas
@@ -2025,24 +2657,23 @@ Constant PARTICULA_TE  = "te";
     !     automática meter al jugador en el objeto desde el cual pueda
     !     acceder al que el jugador ha indicado.
     switch(n) {
-     1: print "Pero si ya estás ";
-    if (x1 has supporter) print "sobre "; else print "en ";
-    print_ret (the) x1, ".";
-     2: print "No es algo donde puedas "; LanguageVerb(verb_word); ".";
-     3: "No puedes entrar en ", (the) x1, " porque está", (n) x1,
-        " cerrad", (o) x1, ".";
-     4: print "No puedes "; LanguageVerb(verb_word);
-        " ahí mientras no lo sueltes.";
-     5:
-    if (x1 has supporter) print "Subes ", (al) x1;
-    else print "Entras en ", (the) x1;
-    print_ret ".";
-     6:
-    if (x1 has supporter) print "(te bajas "; else print "(sales ";
-    print (del) x1; ")";
-     7: if (x1 has supporter) "(te subes ", (al) x1, ")^";
-    if (x1 has container) "(te metes en ", (the) x1, ")^";
-    "(entras en ", (the) x1, ")^";
+      1: print "Pero si ya est", (oy_) " ";
+         if (x1 has supporter) print "sobre "; else print "en ";
+         "", (the) x1, ".";
+      2: print "No es algo donde ", (pueda_) " "; LanguageVerb(verb_word); ".";
+      3: "No pued", (es__) " entrar en ", (the) x1, " porque está", (n) x1,
+         " cerrad", (o) x1, ".";
+      4: print "No ", (puedes_) " "; LanguageVerb(verb_word);
+         " ahí mientras no lo ", (sueltes_) ".";
+      5: if (x1 has supporter) print "Sub", (_es_) " ", (al) x1;
+         else                  print "Entr", (_o_) " en ", (the) x1;
+         ".";
+      6: if (x1 has supporter) print "(", (te_) " baj", (_o_) " ";
+         else                  print "(", (sales_)  " ";
+         print (del) x1; ")";
+      7: if (x1 has supporter) "(", (te_) " sub", (_es_) " ", (al) x1, ")^";
+         if (x1 has container) "(", (te_) " met", (es__) " en ", (the) x1, ")^";
+         "(entr", (_o_) " en ", (the) x1, ")^";
     }
     
   Examine:
@@ -2052,13 +2683,12 @@ Constant PARTICULA_TE  = "te";
     !  3: Exito, pero el objeto examinado no tiene descripcion, aunque
     !     tiene el atributo conmutable, por lo que la librería genera
     !     este mensaje para indicar si está apagado o encendido.
-    switch(n)
-    {
-     1: "Está demasiado oscuro, no puedes ver nada.";
-     2: "No observas nada especial en ", (the) x1, ".";
-     3: print (The) x1, " ", (esta) x1;
-    if (x1 has on) " encendid", (o)x1, ".";
-    else " apagad", (o)x1,".";
+    switch (n) {
+      1: "Está demasiado oscuro, no ", (puedes_) " ver nada.";
+      2: "No observ", (_o_) " nada especial en ", (the) x1, ".";
+      3: print (The) x1, " ", (esta) x1;
+         if (x1 has on) " encendid", (o)x1, ".";
+         else " apagad", (o)x1,".";
     }
 
   Exit:
@@ -2069,20 +2699,20 @@ Constant PARTICULA_TE  = "te";
     ! 2: Error, el jugador está dentro de un recipiente cerrado.
     ! 3: Exito, el jugador sale/baja del objeto
     ! 4: Error, mas especifico. [6/11]
-    switch(n)
-    {
-     1: print "No estás en ningún sitio del que debas ";
-    LanguageVerb(verb_word); ".";
-     2: "No puedes salir ", (del) x1, " porque está cerrad", (o)x1, ".";
-     3: if (x1 has supporter) print "Bajas ";
-    else print "Sales ";
-    print_ret (del) x1, ".";
-     4:  print "Pero es que no estás ";
-            if (x1 has supporter) print "encima de  "; else print "dentro de ";
-            print_ret (the) x1, ".";
+    switch (n) {
+      1: print "No est", (oy_) " en ningún sitio del que deb", (a_) " ";
+         LanguageVerb(verb_word); ".";
+      2: "No ", (puedes_) " salir ", (del) x1, " porque está cerrad", (o)x1, ".";
+      3: if (x1 has supporter) print "Baj", (_o_) " ";
+         else                  print (_Sales_) " ";
+         print_ret (del) x1, ".";
+     4:  print "Pero es que no est", (oy_) " ";
+         if (x1 has supporter) print "encima de  ";
+         else                  print "dentro de ";
+         print_ret (the) x1, ".";
     }
 
-  Fill:      "No puedes llenar", (lo) x1, ".";
+  Fill:  "No ", (puedes_) " llenar", (lo) x1, ".";
   FullScore:
     ! Puntuación en modo "explicativo". Puede activarse porque el
     ! jugador lo pida con el verbo "PUNTUACION LARGA" o porque el
@@ -2094,14 +2724,13 @@ Constant PARTICULA_TE  = "te";
     !  3: texto de lugares importantes (los que tienen el atributo
     !     "valepuntos")
     !  4: texto final, tras la suma total impresa por la librería
-    switch(n)
-    {
-     1: if (deadflag) print "La puntuación se desglosó ";
-    else          print "La puntuación se desglosa ";
-    "de la siguiente manera:^";
-     2: "por encontrar objetos importantes";
-     3: "por visitar lugares importantes";
-     4: print "total (de ", MAX_SCORE ; ")";
+    switch (n) {
+      1: if (deadflag) print "La puntuación se desglosó ";
+         else          print "La puntuación se desglosa ";
+         "de la siguiente manera:^";
+      2: "por encontrar objetos importantes";
+      3: "por visitar lugares importantes";
+      4: print "total (de ", MAX_SCORE ; ")";
     }
   GetOff:
     ! Esta acción se genera ante la frase SAL DEL ARMARIO o
@@ -2109,7 +2738,7 @@ Constant PARTICULA_TE  = "te";
     ! Si el jugador no está en el objeto indicado, se genera el
     ! siguiente mensaje de error. Si está, la librería generará una
     ! acción Salir, por lo que el mensaje de éxito será el de Salir.
-    "Pero si no estás en ", (the) x1, ".";
+    "Pero si no est", (oy_) " en ", (the) x1, ".";
   Give:
     ! 1: Error, el jugador intenta dar un objeto que no tiene
     ! 2: Error, el jugador se da el objeto a sí mismo
@@ -2119,12 +2748,11 @@ Constant PARTICULA_TE  = "te";
     ! [Observar que por defecto el objeto sigue en poder del
     ! jugador. Si queremos que el PNJ lo acepte, hay que programarlo
     ! como parte de su rutina Vida]
-    switch(n)
-    {
-     1: "No tienes ", (the) x1, ".";
-     2: "Manoseas ", (the) x1,
-     " un ratito, pero no consigues gran cosa.";
-     3: print_ret (The) x1, " no parece", (n) x1, " interesad", (o)x1, ".";
+    switch (n) {
+      1: "No ", (tienes_) " ", (the) x1, ".";
+      2: "Manose", (_o_) " ", (the) x1,
+         " un ratito, pero no consigu", (_es_) " gran cosa.";
+      3: print_ret (The) x1, " no parece", (n) x1, " interesad", (o)x1, ".";
     }
   Go:
     ! La acción Ir se genera si el jugador pone IR NORTE, o si pone
@@ -2143,16 +2771,15 @@ Constant PARTICULA_TE  = "te";
     !   6: Error, en la dirección que ha dicho el jugador hay una
     !      puerta, pero ésta no tiene una propiedad puerta_a
     !      (probablemente un error de programación del juego)
-    switch(n)
-    {
-     1: print "Tienes que ";
-         if (x1 has supporter) print "bajarte "; else print "salir ";
+    switch (n) {
+      1: print (_Tienes_) " que ";
+         if (x1 has supporter) print "bajar", (te_) " "; else print "salir ";
          print_ret (del) x1, " antes.";
-     2: "No puedes ir por ahí.";
-     3: "Eres incapaz de trepar por ", (the) x1, ".";
-     4: "Eres incapaz de bajar por ", (the) x1, ".";
-     5: "No puedes pasar a través ", (del) x1, ".";
-     6: "No puedes ir porque ", (the) x1, " no lleva", (n) x1, " a ningún sitio.";
+      2: "No pued", (es__) " ir por ahí.";
+      3: "", (_Eres_) " incapaz de trepar por ", (the) x1, ".";
+      4: "", (_Eres_) " incapaz de bajar por ", (the) x1, ".";
+      5: "No ", (puedes_) " pasar a través ", (del) x1, ".";
+      6: "No ", (puedes_) " ir porque ", (the) x1, " no lleva", (n) x1, " a ningún sitio.";
     }
   Insert:
     ! 1: Error, el objeto no está en poder del jugador. [Nota,
@@ -2175,42 +2802,38 @@ Constant PARTICULA_TE  = "te";
     !    meten muchos (ej: METE TODO EN LA BOLSA)
     ! 9: Exito. Mensaje a mostrar cuando se mete un solo objeto dentro
     !    de otro
-    switch(n)
-    {
-     1: if (x1 has animate) "Antes tendrías que ", (coge)"rl", (o) x1,
-          " y no sé si se dejará",(n)x1,".";
-        else
-          "Necesitas tener ", (the) x1,
-          " para poder meter", (lo) x1,
-          " donde sea.";
-     2: "No se pueden meter cosas dentro ", (del) x1, ".";
-     3: print_ret (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
-     4: "Tienes que quitarte", (lo) x1, " antes.";
-     5: "No puedes poner un objeto dentro de sí mismo.";
-     6: "(primero te ", (lo) x1, " quitas)^";
-     7: "No queda sitio en ", (the) x1, ".";
-     8: "Hecho.";
-     9: "Metes ", (the) x1, " dentro ", (del) second, ".";
+    switch (n) {
+      1: if (x1 has animate) "Antes tendrí", (a_) " que ", (coge)"rl", (o) x1,
+                             " y no sé si se dejará",(n)x1,".";
+         else                "Necesit", (_o_) " tener ", (the) x1,
+                             " para poder meter", (lo) x1,
+                             " donde sea.";
+      2: "No se pueden meter cosas dentro ", (del) x1, ".";
+      3: print_ret (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
+      4: "", (_Tienes_) " que quitar", (te_) "", (lo) x1, " antes.";
+      5: "No ", (puedes_) " poner un objeto dentro de sí mismo.";
+      6: "(primero ", (te_) " ", (lo) x1, " quitas)^";
+      7: "No queda sitio en ", (the) x1, ".";
+      8: "Hecho.";
+      9: "Met", (es__) " ", (the) x1, " dentro ", (del) second, ".";
     }
 
- Inv:
+  Inv:
     ! Inventario
     !  1: Mensaje si el inventario está vacío
     !  2: Encabezado del inventario, antes de la lista de objetos
     !     generada por la librería
     !  3 y 4: [6/11]
-    switch(n)
-    {
-     1: "No llevas nada.";
-     2: print "Llevas";
-     3:  print ":^";
-     4:  print ".^";
+    switch (n) {
+      1: "No llev", (_o_) " nada.";
+      2: print "Llev", (_o_) ":";
+      3: print ":^";
+      4: print ".^";
     }
-  Jump:      "Saltas en el sitio, sin ningún resultado.";
-  JumpOver,Tie:
-        "No lograrás nada así.";
-  Kiss:         "No creo que debas.";
-  Listen:      "No escuchas nada fuera de lo común.";
+  Jump:          "Salt", (_o_) " en el sitio, sin ningún resultado.";
+  JumpOver, Tie: "No lograr", (_as_) " nada así.";
+  Kiss:          "No creo que deb", (a_) ".";
+  Listen:        "No escuch", (_o_) " nada fuera de lo común.";
   ListMiscellany:
     ! Los siguientes mensajes se muestran como aclaraciones cuando se
     ! está listando el inventario del jugador, o los objetos que hay
@@ -2287,7 +2910,7 @@ Constant PARTICULA_TE  = "te";
     ! EscribirListaDesde es llamada sin el modo BREVE_BIT)
     }
     
- LMode1:
+  LMode1:
     ! La acción ModoM1 se genera ante el comando BREVE (o NORMAL). La
     ! librería imprime la constante Historia y a continuación este
     ! mensaje.
@@ -2295,14 +2918,14 @@ Constant PARTICULA_TE  = "te";
     largas de los lugares la primera vez que son visitadas, y
     descripciones cortas en otro caso.";
 
- LMode2:
+  LMode2:
     ! La acción ModoM2 se genera ante el comando LARGO. La
     ! librería imprime la constante Historia y a continuación este
     ! mensaje.
     " está ahora en su modo ~largo~, que siempre da descripciones
     largas de los lugares (incluso si ya habías estado antes).";
 
- LMode3:
+  LMode3:
     ! La acción ModoM3 se genera ante el comando SUPERBREVE. La
     ! librería imprime la constante Historia y a continuación este
     ! mensaje.
@@ -2325,22 +2948,21 @@ Constant PARTICULA_TE  = "te";
     !  5: Exito, el <objeto> es cerrado (con <objeto2> si este es
     !     specificado, el cual puede encontrarse en la variable
     !     "otro")
-    switch(n)
-    {
+    switch (n) {
       1: "No parece", (n) x1, " tener ningún tipo de cerrojo.";
       2: if (x1 provides with_key)
-      print_ret (The) x1, " ya estaba", (n) x1, " cerrad", (o) x1,
-      " con llave.";
-    else
-      print_ret (The) x1, " ya tiene",(n) x1, " echado el cerrojo.";
-      3: "Primero tendrás que cerrar ", (the) x1, ".";
+           print_ret (The) x1, " ya estaba", (n) x1, " cerrad", (o) x1,
+                     " con llave.";
+         else
+           print_ret (The) x1, " ya tiene",(n) x1, " echado el cerrojo.";
+      3: "Primero tendr", (_as_) " que cerrar ", (the) x1, ".";
       4: if (second) "No parece", (n) x1, " encajar en la cerradura.";
-    "Necesitas algún tipo de llave.";
-      5: if (second) "Cierras ", (the) x1," con ", (the) second, ".";
-    "Echas el cerrojo ", (al) x1, ".";
+         "Necesit", (_o_) " algún tipo de llave.";
+      5: if (second) "", (_Cierras_) " ", (the) x1, " con ", (the) second, ".";
+         "Ech", (_o_) " el cerrojo ", (al) x1, ".";
     }
 
- Look:
+  Look:
     ! La acción Look se genera cuando el player pone MIRAR, pero
     ! también de forma automática al entrar en una localidad nueva, o
     ! cuando el player sale/se baja de un objeto en el que estaba.
@@ -2367,45 +2989,43 @@ Constant PARTICULA_TE  = "te";
     !     dan su propia auto-descrcipcion a través de la propiedad
     !     "describe" o "initial".
     !  7: Respuesta estandar para MirarHacia [6/11]
-    switch(n)
-    {
-     1: print " (sobre ", (the) x1, ")";
-     2: print " (en ", (the) x1, ")";
-     3: print " (como ", (object) x1,")";
-     4: print "^Sobre ", (the) x1; ! ELIUK: agregado salto de linea inicial (solo I6)
-    WriteListFrom(child(x1),
-                      ENGLISH_BIT + RECURSE_BIT + PARTINV_BIT
-                      + TERSE_BIT + ISARE_BIT + CONCEAL_BIT);
-    ".";
-     5,6: new_line; ! ELIUK: agregado salto de linea inicial (solo I6)
-         if (x1~=location)
-         {      if (x1 has supporter) print "Sobre "; else print "En ";
-                 print (the) x1;
-                 print " puedes ver ";
-         }
-         else print "Puedes ver ";
-         if (n==5) print "también ";
-         WriteListFrom(child(x1),
-                      ENGLISH_BIT + WORKFLAG_BIT + RECURSE_BIT
-                      + PARTINV_BIT + TERSE_BIT + CONCEAL_BIT);
-         if (x1~=location) ".";
-         ".";
-     7: "No observas nada digno de mención al mirar hacia ", (the) x1, ".";![6/11] ! ELIUK: sobraba el "más"
-     8:  if (x1 has supporter) print " (sobre "; else print " (en "; ! added in 6/11N 4U65
-          print (the) x1, ")";
+    switch (n) {
+      1:   print " (sobre ", (the) x1, ")";
+      2:   print " (en ", (the) x1, ")";
+      3:   print " (como ", (object) x1,")";
+      4:   print "^Sobre ", (the) x1; ! ELIUK: agregado salto de linea inicial (solo I6)
+           WriteListFrom(child(x1),
+                         ENGLISH_BIT + RECURSE_BIT + PARTINV_BIT
+                         + TERSE_BIT + ISARE_BIT + CONCEAL_BIT);
+           ".";
+     5, 6: new_line; ! ELIUK: agregado salto de linea inicial (solo I6)
+           if (x1 ~= location) {
+             if (x1 has supporter) print "Sobre "; else print "En ";
+             print (the) x1;
+             print " ", (puedes_) " ver ";
+           } else print "", (_Puedes_) " ver ";
+
+           if (n == 5) print "también ";
+           WriteListFrom(child(x1),
+                         ENGLISH_BIT + WORKFLAG_BIT + RECURSE_BIT
+                         + PARTINV_BIT + TERSE_BIT + CONCEAL_BIT);
+           if (x1 ~= location) ".";
+           ".";
+      7:   "No observ", (_o_) " nada digno de mención al mirar hacia ", (the) x1, ".";![6/11] ! ELIUK: sobraba el "más"
+      8:   if (x1 has supporter) print " (sobre "; else print " (en "; ! added in 6/11N 4U65
+           print (the) x1, ")";
     }
 
   LookUnder:
     ! Dos casos:
     !  1: Error, estamos a oscuras
     !  2: Exito, mensaje por defecto.
-    switch(n)
-    {
-     1: "Está muy oscuro.";
-     2: "No ves nada interesante.";
+    switch (n) {
+      1: "Está muy oscuro.";
+      2: "No v", (eo_) " nada interesante.";
     }
 
-  Mild:        "Bastante.";
+  Mild:  "Bastante.";
   ! Y esta si usa como primera palabra algún insulto más suave
   
 !================================================================
@@ -2421,59 +3041,58 @@ Constant PARTICULA_TE  = "te";
 ! genera.
 
  Miscellany:
-    switch(n)
-    {
-     1: "(Sólo considero los dieciséis primeros objetos)^";
+    switch (n) {
+      1: "(Sólo considero los dieciséis primeros objetos)^";
     ! El player ha especificado objetos multiples, pero el parser
     ! tiene una lista que no admite más de 16, de modo que los
     ! restbefore objetos no serán procesados.
 
-     2: "¡No sé a qué objetos te refieres!";
+      2: "¡No sé a qué objetos te refieres!";
     ! El player ha usado objetos multiples, pero por alguna razón
     ! la lista del parser está vacía.
 
-     3: 
-!         TextoLlamativo(" Has muerto ");
+      3: 
+!        TextoLlamativo(" Has muerto ");
          print " Has muerto ";
     ! Mensaje fin de juego. Has muerto.
 
-     4: 
-!          TextoLlamativo(" Has ganado ");
-          print " Has ganado ";
+      4: 
+!        TextoLlamativo(" Has ganado ");
+         print " Has ganado ";
     ! Mensaje fin de juego de victoria.
 
-     5: ! Mensaje a mostrar tras el fin del juego, para pedir al
-    ! player si quiere reniciar, recuperar, anular, puntuación,
-    ! curiosidades o terminar.
-       print "^¿Quieres REINICIAR, RECUPERAR un juego guardado";
-       #IFDEF DEATH_MENTION_UNDO;
-         print ", ANULAR tu último movimiento";
-       #ENDIF;
-    !  #IFNDEF NO_PUNTUACION;
-         if (TASKS_PROVIDED==0)
+      5: ! Mensaje a mostrar tras el fin del juego, para pedir al
+         ! player si quiere reniciar, recuperar, anular, puntuación,
+         ! curiosidades o terminar.
+         print "^¿Quieres REINICIAR, RECUPERAR un juego guardado";
+         #IFDEF DEATH_MENTION_UNDO;
+           print ", ANULAR tu último movimiento";
+         #ENDIF;
+!        #IFNDEF NO_PUNTUACION;
+         if (TASKS_PROVIDED == 0)
            print ", ver la PUNTUACIÓN de este juego";
-    !  #ENDIF; ! NO_PUNTUACION
+!        #ENDIF; ! NO_PUNTUACION
     
-         if (deadflag==2 && AMUSING_PROVIDED==0)
-            print ", ver algunas CURIOSIDADES";
-    
-      " o TERMINAR?";
+         if (deadflag == 2 && AMUSING_PROVIDED == 0)
+           print ", ver algunas CURIOSIDADES";
 
-     6: "[Tu intérprete no puede ~deshacer~ acciones, ¡lo siento!]";
-    ! Error si el intérprete no tiene "undo"
-            #Ifdef TARGET_ZCODE; ![6/11]
-     7: "~deshacer~ falló. [No todos los intérpretes lo tienen.]";
-            #Ifnot; ! TARGET_GLULX
-     7:  "[No puedes ~deshacer~ más.]";
-            #Endif; ! TARGET_
-    ! Otro error si el intérprete no tiene "undo", pero no había
-    ! sido detectado correctamente
+         " o TERMINAR?";
 
-     8: "Por favor, da una de las respuestas anteriores.";
+      6: "[Tu intérprete no puede ~deshacer~ acciones, ¡lo siento!]";
+         ! Error si el intérprete no tiene "undo"
+    #Ifdef TARGET_ZCODE; ![6/11]
+      7: "~deshacer~ falló. [No todos los intérpretes lo tienen.]";
+    #Ifnot; ! TARGET_GLULX
+      7:  "[No puedes ~deshacer~ más.]";
+    #Endif; ! TARGET_
+     ! Otro error si el intérprete no tiene "undo", pero no había
+     ! sido detectado correctamente
+
+      8: "Por favor, da una de las respuestas anteriores.";
     ! Si el player no responde correctamente a la pregunta del
     ! mensaje [Miscellany,5]
 
-     9: "^¡Te has quedado a oscuras!"; ! ELIUK: agregado salto de linea inicial (solo I6)
+      9: "^¡", (_Te_) " h", (e_) " quedado a oscuras!"; ! ELIUK: agregado salto de linea inicial (solo I6)
     ! Mensaje cuando se detecta, al final del turno, que ya no hay
     ! light.
 
@@ -2482,10 +3101,10 @@ Constant PARTICULA_TE  = "te";
     ! llega a generarse acción alguna, por tanto no se consume
     ! turno ni se ejecutan daemons)
 
-     11: "[No puedes ~deshacer~ lo que no has hecho.]";
+     11: "[No ", (puedes_) " ~deshacer~ lo que no h", (e_) " hecho.]";
     ! Si el player intenta "undo" al principio del juego
 
-     12: "[No puedes ~deshacer~ dos veces seguidas. ¡Lo siento!]";
+     12: "[No ", (puedes_) " ~deshacer~ dos veces seguidas. ¡Lo siento!]";
     ! Si el player pone "undo" dos veces
 
      13: "[Retrocediendo al turno anterior.]";
@@ -2507,10 +3126,10 @@ Constant PARTICULA_TE  = "te";
      16: "~eepa~ sólo puede corregir una palabra.";
     ! Si el player pone EEPA seguido de dos o más palabras
 
-     17: "Está muy oscuro y no puedes ver nada.";
+     17: "Está muy oscuro y no ", (puedes_) " ver nada.";
     ! Descripción del objeto Oscuridad
 
-     18: print "ti mism", (o) player;
+     18: print "", (ti_) " mism", (os_) "";
     ! Nombre corto del objeto player
 
      19: "Tan buen aspecto como siempre.";
@@ -2521,7 +3140,7 @@ Constant PARTICULA_TE  = "te";
     ! Cuando el player pone PNJ, REPITE para que el PNJ haga otra
     ! vez la última acción.
 
-     21: "No hay commando que repetir.";
+     21: "No hay comando que repetir.";
     ! Cuando el player pone REPITE como primer commando del juego.
 
      22: "No puedes empezar la frase con una coma.";
@@ -2532,17 +3151,17 @@ Constant PARTICULA_TE  = "te";
     ! Cuando el player pone PEPE, COGE HACHA, pero no hay un
     ! objeto que responda al name PEPE.
 
-     24: "No puedes hablar con ", (the) x1, ".";
+     24: "No ", (puedes_) " hablar con ", (the) x1, ".";
     ! Si el player intenta hablar con un objeto que no es
     ! "animate" ni "talkable" ("talkable" debe ponerse a objetos
     ! inanimates con los que se podría hablar, como un micrófono)
 
      25: "Para hablar con alguien intenta ~alguien, hola~ o algo
-    así.";
+         así.";
     ! Si hay palabras no comprendidas entre el name del PNJ y
     ! la comma, como p.ej: PEPE XADASDGG, SALTA
 
-     26: print "(primero tratas de ", (coge)"r ";
+     26: print "(primero trat", (_o_) " de ", (coge) "r ";
          if (x1 has animate) print (al) x1;
          else                print (the) x1;
          ")"; ! infsp I6
@@ -2575,7 +3194,7 @@ Constant PARTICULA_TE  = "te";
 
      30: ! El parser no ha comprendido el nombre del objeto al que se
     ! refiere el player, o ese objeto no está aquí.
-    "No veo eso que dices.";
+    "No v", (eo_) " eso que dices.";
 
      31: ! Este error parece que no se genera nunca. Un posible bug de
     ! libreria, o restos de versiones arcaicas
@@ -2584,7 +3203,7 @@ Constant PARTICULA_TE  = "te";
      32: ! El objeto que el player intenta usar no está en su
     ! poder. El parser ha intentado "cogerlo de forma automatica",
     ! pero ha fallado
-    "¡No tienes eso!";
+    "¡No ", (tienes_) " eso!";
 
      33: ! El player ha intentado usar objetos múltiples (o "TODO")
     ! con un verbo que en su gramática no lo admite.
@@ -2610,7 +3229,7 @@ Constant PARTICULA_TE  = "te";
     ! se actúe sea animate (tiene un token de tipo "creature"),
     ! pero el player lo ha intentado sobre un objeto que no es
     ! animate.
-    "Sólo puedes hacer eso con seres animados.";
+    "Sólo ", (puedes_) " hacer eso con seres animados.";
 
      38: ! La primera palabra usada por el player es desconocida (o
     ! la primera palabra tras la comma, si se trata de una orden a
@@ -2623,9 +3242,8 @@ Constant PARTICULA_TE  = "te";
 
      40: ! El player ha usado un proname, como EXAMINALO, pero el
     ! proname se refiere a un objeto que ya no está visible.
-     "Ahora mismo no puedes ver lo que representa el pronombre ~",
-      (address) pronoun_word,
-     "~ (", (the) pronoun_obj, ").";
+     "Ahora mismo no ", (puedes_) " ver lo que representa el pronombre ~",
+      (address) pronoun_word, "~ (", (the) pronoun_obj, ").";
 
      41: ! Este error no sale nunca. Probablemente sigue aqui por
     ! razones de compatibilidad, o por despiste de Graham ¿Tal vez
@@ -2652,7 +3270,7 @@ Constant PARTICULA_TE  = "te";
     ! parser no ha encontrado ningún objeto. En realidad este
     ! error parece no producirse nunca (second bug de librería) ya
     ! que el que siempre acaba generándose es el siguiente (44)
-     "¡No encuentro nada para hacer eso!";
+     "¡No ", (encuentro_) " nada para hacer eso!";
 
      44: ! El player ha intentado objetos múltiples usando TODO
          ! pero el parser no ha encontrado ninguno. Por ejemplo, COGE
@@ -2660,7 +3278,7 @@ Constant PARTICULA_TE  = "te";
          ! Modificado en [020621] para dar un mensaje más coherente
          ! si el player tiene algún objeto en su inventario.
        if (action_to_be == ##Drop) {
-         print "¡Pero si no llevas nada";
+         print "¡Pero si no llev", (_o_) " nada";
          if (children (player))
            " de eso!";
          else
@@ -2766,7 +3384,7 @@ Constant PARTICULA_TE  = "te";
      57: print "?^";
     }        
     
-  No,Yes:      "Sólo era una pregunta retórica.";
+  No, Yes: "Sólo era una pregunta retórica.";
   ! Cuando el jugador pone SI o NO, a secas, se genera esta
   ! acción. Está pensado por si el juego suelta una frase del estilo
   ! de "¿Pero tú eres tonto?" y el jugador responde NO.
@@ -2781,7 +3399,7 @@ Constant PARTICULA_TE  = "te";
   NotifyOff:
     "Notificación de puntuación desactivada.";
     
- Objects:
+  Objects:
     ! Ante el verbo "OBJETOS" se genera esta acción, que muestra una
     ! lista de todos los objetos que el jugador ha manipulado a lo
     ! largo del juego, junto con una indicación de qué hizo con ellos.
@@ -2793,6 +3411,7 @@ Constant PARTICULA_TE  = "te";
     !  5: indicación de quién lo tiene ahora (si lo tiene un PNJ)
     !  6: indicación de dónde está el objeto (si está en una localidad)
     !  7: indicación de dónde está el objeto (si está en un "entrable")
+
     !  8: indicación de dónde está el objeto (si está en un recipiente)
     !  9: indicación de dónde está el objeto (si está en un soporte)
     !  10: indicación de que se ha perdido (no está en ninguno de los
@@ -2825,16 +3444,15 @@ Constant PARTICULA_TE  = "te";
     !     había en su interior (si habia algo)
     !  5: Exito, el objeto se abre (pero no tiene nada en su
     !     interior, o no era recipiente).
-    switch(n)
-    {
-     1: print_ret "No es algo que pueda abrirse.";
-     2: "Está", (n) x1, " cerrad", (o) x1, " con llave.";
-     3: "Ya estaba", (n) x1, " abiert", (o) x1, ".";
-     4: print "Abres ", (the) x1, ", descubriendo ";
-    if (WriteListFrom(child(x1),
-                            ENGLISH_BIT + TERSE_BIT + CONCEAL_BIT)==0) "nada.";
-    ".";
-     5: "Abres ", (the) x1, ".";
+    switch (n) {
+      1: print_ret "No es algo que pueda abrirse.";
+      2: "Está", (n) x1, " cerrad", (o) x1, " con llave.";
+      3: "Ya estaba", (n) x1, " abiert", (o) x1, ".";
+      4: print "Abr", (_es_) " ", (the) x1, ", descubriendo ";
+         if (WriteListFrom(child(x1),
+                           ENGLISH_BIT + TERSE_BIT + CONCEAL_BIT)==0) "nada.";
+         ".";
+      5: "Abr", (_es_) " ", (the) x1, ".";
     }
 
   Order:
@@ -2849,7 +3467,9 @@ Constant PARTICULA_TE  = "te";
         2:  print ".^";
     }
 
-  Pray:         "No obtienes nada práctico de tus oraciones.";
+  Pray: x1 = player has female; give player female;
+        print "No ob", (tienes_) " nada práctico de ", (tu_) "s oraciones.^";
+        if (~~x1) give player ~female; rtrue;
 
   Prompt:
     print "^>";
@@ -2857,7 +3477,7 @@ Constant PARTICULA_TE  = "te";
     ! jugador. Puede definirse para que sea una frase, o se genere una
     ! frase aleatoria en cada turno.
     
-   Pronouns:
+  Pronouns:
     ! Esta acción (generada por el verbo PRONOMBRES) muestra una lista
     ! de qué significa en ese momento para el parser cada proname
     ! -lo, -la, -los, -las...
@@ -2885,10 +3505,9 @@ Constant PARTICULA_TE  = "te";
   !   4: El objeto es un ser animado
   ! [Nota, si el objeto tiene ambos 'estatico' y 'escenario' se
   ! está también en el caso 1]
-    switch(n)
-    {
-      1: "Está", (n)x1, " firmemente sujet", (o)x1, ".";
-      2: "No eres capaz.";
+    switch (n) {
+      1: "Está", (n) x1, " firmemente sujet", (o) x1, ".";
+      2: "No ", (eres_ ) " capa", (z_) ".";
       3: "No ocurre nada, aparentemente.";
       4: "Eso sería, como poco, maleducado.";
     }
@@ -2905,17 +3524,16 @@ Constant PARTICULA_TE  = "te";
   !   2: Si el jugador pone tras HACIA algo que no es una dirección.
   !      (respuesta por defecto en este caso)
   !   3: Si intenta empujar hacia arriba o hacia abajo
-    switch(n)
-    {
-     1: print "No creo que empujar ";
-        if (x1 has animate) print (al) x1;
-        else                print (el) x1;
-        " sirva para nada.";
-     2: "Eso no es una dirección.";
-     3: "No, no puedes en esa dirección.";
+    switch(n) {
+      1: print "No creo que empujar ";
+         if (x1 has animate) print (al) x1;
+         else                print (el) x1;
+         " sirva para nada.";
+      2: "Eso no es una dirección.";
+      3: "No, no ", (puedes_) " en esa dirección.";
     }
    
- PutOn:
+  PutOn:
     ! 1: Error, el objeto no está en poder del jugador. [Nota,
     !    conviene mirar en este caso si el objeto es animado o no,
     !    para generar un mensaje más adecuado]
@@ -2934,34 +3552,31 @@ Constant PARTICULA_TE  = "te";
     !    ponen muchos (ej: PON TODO SOBRE LA MESA)
     ! 8: Exito. Mensaje a mostrar cuando se pone un solo objeto sobre
     !    otro.
-    switch(n)
-    {
-     1: if (x1 has animate)
-     "Antes tendrías que", (coge) "rl", (o) x1, ", y no sé si se dejará",
-         (n) x1, ".";
-    else
-           "Necesitas tener ", (the) x1,
-         " para poder poner", (lo) x1,
-         " donde sea.";
-     2: "No puedes poner un objeto sobre sí mismo.";
-     3: "Poner cosas sobre ", (the) x1, " no servirá de nada.";
-     4: "Te falta destreza.";
-     5: "(primero te ", (lo) x1, " quitas)^";
-     6: "No queda sitio en ", (the) x1, " para poner nada más.";
-     7: "Hecho.";
-     8: "Colocas ", (the) x1, " sobre ", (the) second, ".";
+    switch (n) {
+      1: if (x1 has animate)
+           "Antes tendr", (ia_) " que", (coge) "rl", (o) x1, ", y no ",
+           (_se_) " si se dejará", (n) x1, ".";
+          else
+            "Necesit", (_o_) " tener ", (the) x1, " para poder poner",
+            (lo) x1, " donde sea.";
+      2: "No ", (puedes_) " poner un objeto sobre sí mismo.";
+      3: "Poner cosas sobre ", (the) x1, " no servirá de nada.";
+      4: "", (_Te_) " falta destreza.";
+      5: "(primero ", (se_) " ", (lo) x1, " quit", (_o_) ")^";
+      6: "No queda sitio en ", (the) x1, " para poner nada más.";
+      7: "Hecho.";
+      8: "Coloc", (_o_) " ", (the) x1, " sobre ", (the) second, ".";
     }
    
- Quit:
+  Quit:
     !  1: Respuesta al comando FIN
     !  2: Respuesta si el jugador escribe algo distinto de "si" o "no"
-    switch(n)
-    {
-     1: print "Por favor, responde sí o no.";
-     2: print "¿Realmente quieres abandonar el juego? ";  ! ELIUK BLAU: antes "Seguro que..."
+    switch (n) {
+      1: print "Por favor, responde sí o no.";
+      2: print "¿Realmente quieres abandonar el juego? ";  ! ELIUK BLAU: antes "Seguro que..."
     }
     
- Remove:
+  Remove:
     ! 2 mensajes de error y 1 de exito
     !   1: El recipiente que contiene el objeto que el jugador quiere
     !      sacar, está cerrado. (ml_o apunta al objeto, no al
@@ -2969,80 +3584,74 @@ Constant PARTICULA_TE  = "te";
     !   2: El objeto no está dentro del recipiente que el jugador ha
     !     dicho.
     !   3: Exito
-    switch(n)
-    {
-     1: "Por desgracia ", (the) parent(x1), " ",(esta) parent(x1),
-     " cerrad", (o) parent(x1), ".";
-     2: if (second has animate)
-     "¡Pero si no ", (lo) x1, " tiene", (n) second, "!";
-    "¡Pero si no ", (esta) x1, " ahí ahora!";
-     3: if (verb_word=='quita') "Quitad", (o)x1, ".";
-    "Sacad", (o) x1, ".";
+    switch (n) {
+      1: "Por desgracia ", (the) parent(x1), " ", (esta) parent(x1),
+         " cerrad", (o) parent(x1), ".";
+      2: if (second has animate)
+           "¡Pero si no ", (lo) x1, " tiene", (n) second, "!";
+         "¡Pero si no ", (esta) x1, " ahí ahora!";
+      3: if (verb_word == 'quita') "Quitad", (o) x1, ".";
+         "Sacad", (o) x1, ".";
     }
 
- Restart:
+  Restart:
     !  1: Respuesta al comando REINICIAR
     !  2: Si no se puede reiniciar
-    switch(n)
-    {
-     1: print "¿Realmente quieres reiniciar el juego? ";  ! ELIUK BLAU: antes "Seguro que..."
-     2: "Error.";
+    switch (n) {
+      1: print "¿Realmente quieres reiniciar el juego? ";  ! ELIUK BLAU: antes "Seguro que..."
+      2: "Error.";
     }
 
- Restore:
+  Restore:
     ! 1: Si no se pudo cargar la partida con LOAD
     ! 2: Exito (no llega a mostrarse, porque en caso de éxito el
     !    estado del juego cambia al momento en que se salvó. El "Ok"
     !    que se ve entonces es el del comando Salvar.
-    switch(n)
-    {
-     1: "Error. No se pudo recuperar la partida.";
-     2: "Ok.";
+    switch (n) {
+      1: "Error. No se pudo recuperar la partida.";
+      2: "Ok.";
     }
 
- Rub:      "Ya ", (esta) x1, " bastante limpi", (o) x1, ".";
+  Rub: "Ya ", (esta) x1, " bastante limpi", (o) x1, ".";
 
- Save:
+  Save:
     ! 1: Si no se pudo guardar el juego
     ! 2: Éxito
-    switch(n)
-    {
-     1: "Error. No se pudo guardar.";
-     2: "Ok.";
+    switch (n) {
+      1: "Error. No se pudo guardar.";
+      2: "Ok.";
     }
 
     ! Puntuación del juego. Puede activarse porque el player lo pide
     ! (con el verbo "PUNTUACION") o porque el juego ha terminado. En
     ! este ultimo caso, la variable "deadflag" valdrá true.
     ! [6/11] agregado de (2)
-  Score: switch (n) {
-    1: if (deadflag) print "En este juego, tu puntuación ha sido ";
-       else print "Hasta el momento tu puntuación es ";
-       print score, " de un total de ", MAX_SCORE,
-        ", en ", turns, " turno";
-       if (turns>1) print "s"; return;
-    2:  "Este juego no tiene conteo de puntuación.";
+  Score:
+    switch (n) {
+      1: if (deadflag) print "En este juego, ", (tu_) " puntuación ha sido ";
+         else          print "Hasta el momento tu puntuación es ";
+         print score, " de un total de ", MAX_SCORE, ", en ", turns, " turno";
+         if (turns>1) print "s"; return;
+      2: "Este juego no tiene conteo de puntuación.";
     }
 
- ScriptOff:
+  ScriptOff:
     ! 1: Error ya estaba desactivada la transcrcipción
     ! 2: Exito
-    switch(n)
-    {
-     1: "La transcripción ya estaba desactivada.";
-     2: "^Fin de la transcripción.";
-     3:  "Intento fallido de finalización de transcripción.";
+    switch (n) {
+      1: "La transcripción ya estaba desactivada.";
+      2: "^Fin de la transcripción.";
+      3: "Intento fallido de finalización de transcripción.";
     }
 
- ScriptOn:
+  ScriptOn:
     ! 1: Error, ya estaba activada la transcrcipción
     ! 2: Éxito (parte inicial del mensaje, la librería añade el título
     !    del juego obtenido de la constante Historia)
-    switch(n)
-    {
-     1: "La transcripción ya estaba activada.";
-     2: "Iniciando la transcripción de ";
-     3:  "Intento fallido de comienzo de transcripción.";
+    switch (n) {
+      1: "La transcripción ya estaba activada.";
+      2: "Iniciando la transcripción de ";
+      3: "Intento fallido de comienzo de transcripción.";
     }
 
   Search:
@@ -3059,28 +3668,27 @@ Constant PARTICULA_TE  = "te";
     !     tiene nada dentro.
     !  7: Éxito, el objeto examinado es recipiente abierto y tiene
     !     cosas dentro. Listarlas.
-    switch(n)
-    {
-     1: "Está muy oscuro.";
-     2: "No hay nada sobre ", (the) x1, ".";
-     3: print "Sobre ", (the) x1;
-    WriteListFrom(child(x1),
-                      TERSE_BIT + ENGLISH_BIT + ISARE_BIT + CONCEAL_BIT);
-    ".";
-     4: "No encuentras nada interesante.";
-     5: "No puedes ver lo que hay dentro ", (del) x1, " porque ",
-     (esta) x1, " cerrad", (o)x1, ".";
-     6: print_ret (The) x1, " ", (esta) x1, " vací", (o)x1,".";
-     7: print "En ", (the) x1;
-    WriteListFrom(child(x1),
-                      TERSE_BIT + ENGLISH_BIT + ISARE_BIT + CONCEAL_BIT);
-    ".";
+    switch (n) {
+      1: "Está muy oscuro.";
+      2: "No hay nada sobre ", (the) x1, ".";
+      3: print "Sobre ", (the) x1;
+         WriteListFrom(child(x1),
+                       TERSE_BIT + ENGLISH_BIT + ISARE_BIT + CONCEAL_BIT);
+         ".";
+      4: "No ", (encuentro_) " nada interesante.";
+      5: "No ", (puedes_) " ver lo que hay dentro ", (del) x1, " porque ",
+         (esta) x1, " cerrad", (o)x1, ".";
+      6: print_ret (The) x1, " ", (esta) x1, " vací", (o) x1,".";
+      7: print "En ", (the) x1;
+         WriteListFrom(child(x1),
+                       TERSE_BIT + ENGLISH_BIT + ISARE_BIT + CONCEAL_BIT);
+         ".";
     }
 
-  Set:       "No, no puedes.";
+  Set: "No, no ", (puedes_) ".";
   ! Fijar sale ante la frase FIJA OBJETO o AJUSTA OBJETO
 
-  SetTo:      "Eso no puede regularse a ningún valor.";
+  SetTo: "Eso no puede regularse a ningún valor.";
   ! PonerA sale ante la frase AJUSTA DIAL A 23 o FIJA CONTROL EN
   ! ACTIVADO, o PON REGULADOR A 30
   
@@ -3089,44 +3697,41 @@ Constant PARTICULA_TE  = "te";
     ! 2: Aviso, se ha enviado la acción Mostrar al PNJ, pero este no
     !    ha respondido. En este caso ml_n apunta al PNJ y no al objeto
     !    que le hemos mostrado.
-    switch(n)
-    {
-     1: "No tienes ", (the)x1, ".";
+    switch (n) {
+     1: "No ", (tienes_) " ", (the) x1, ".";
      2: print_ret (The) x1, " no muestra", (n) x1, " interés.";
     }
     
-  Sing:         "Cantas fatal.";
-  Sleep:         "No estás especialmente somnolient", (o) player, ".";
-  Smell:          "No hueles nada extraño.";
-  Sorry:    "Oh, no es necesario que te disculpes.";
+  Sing:  "Cant", (_o_) " fatal.";
+  Sleep: "No est", (oy_) " especialmente somnolient", (o) player, ".";
+  Smell: "No huel", (es__) " nada extraño.";
+  Sorry: "Oh, no es necesario que te disculpes.";
   ! Esta acción se genera si el jugador pone "LO SIENTO",
   ! "PERDONA" o cosas similares.
 
- Squeeze:
+  Squeeze:
     ! Dos casos:
     !  1: Tratar de retorcer un ser animado
     !  2: Cualquier otro objeto
-    switch(n)
-    {
-     1: "¡Las manos quietas!";
-     2: "No consigues nada haciendo eso.";
+    switch (n) {
+      1: "¡Las manos quietas!";
+      2: "No consig", (ues_) " nada haciendo eso.";
     }
 
-  Strong:       "Los verdaderos aventureros no usan ese vocabulario.";
+  Strong: "Los verdaderos aventureros no usan ese vocabulario.";
   ! Y esta si usa como primera palabra (verbo) un taco.
-  Swim:       "No hay agua suficiente en la que nadar.";
-  Swing:   "No es adecuad", (o) x1, " para columpiarse.";
+  Swim:   "No hay agua suficiente en la que nadar.";
+  Swing:  "No es adecuad", (o) x1, " para columpiarse.";
 
   SwitchOff:
     !  1: Error, el objeto no tiene el atributo "conmutable"
     !  2: Error, el objeto ya tenia desactivado el atributo
     !    "encendido"
     !  3: Exito, el objeto tiene ahora desactivado "encendido"
-    switch(n)
-    {
-     1: print_ret "No es algo que pueda apagarse.";
-     2: print_ret "Ya estaba", (n) x1, " apagad", (o) x1, ".";
-     3: "Apagas ", (the) x1, ".";
+    switch(n) {
+      1: print_ret "No es algo que pueda apagarse.";
+      2: print_ret "Ya estaba", (n) x1, " apagad", (o) x1, ".";
+      3: "Apag", (_o_) " ", (the) x1, ".";
     }
 
   SwitchOn:
@@ -3140,14 +3745,13 @@ Constant PARTICULA_TE  = "te";
     !      pone CONECTA OBJETO)
     !   2: Error, el objeto ya tenía el atributo "encendido"
     !   3: Exito, el objeto tiene ahora activado "encendido".
-    switch(n)
-    {
-     1: print_ret "No es algo que pueda encenderse.";
-     2: print_ret "Ya estaba", (n) x1, " encendid", (o) x1, ".";
-     3: "Enciendes ", (the) x1, ".";
+    switch (n) {
+      1: print_ret "No es algo que pueda encenderse.";
+      2: print_ret "Ya estaba", (n) x1, " encendid", (o) x1, ".";
+      3: "Enciend", (o__) " ", (the) x1, ".";
     }
     
-    Take:
+  Take:
     ! Hay 13 casos diferentes. Se trata de 1 mensaje de éxito y 11
     ! mensajes de error y un aviso
     !  1: Exito
@@ -3176,32 +3780,31 @@ Constant PARTICULA_TE  = "te";
     !     declarar el programador. Si el jugador lo coge y lo lleva
     !     consigo, la librería lo usará automáticamente como mochila
     !     para descargar al jugador cuando sea necesario]
-    switch(n)
-    {
-!     1: "Hecho."; ! [infsp] fixed, no se pasa el objeto
-     1: if (dialecto_sudamericano) print "Tomad";
-       else print "Cogid";
-       print_ret (o) noun, ".";
-     2: "Siempre te tienes a ti mism", (o) player, ".";
-     3: "No creo que ", (al) x1, " le", (s) x1, " gustara.";
-     4: print "Tienes que ";
-    if (x1 has supporter) print "bajarte "; else print "salirte ";
-    print_ret (del) x1, " antes.";
-     5: "Ya tienes ", (the) x1, ".";
-     6:    "Parece que pertenece", (n) noun, " ", (al) x1, ".";
-     7: "Parece", (n) noun, " formar parte ", (del) x1, ".";
-     8: "No ", (esta) x1, " disponible", (s)x1, ".";
-     9: print_ret (The) x1, " no ", (esta) x1, " abiert", (o) x1, ".";
-     10: "Difícilmente podrías llevarte eso.";
-     11: print_ret (The) x1, " está fij", (o) x1, " en el sitio.";
-     12: "Ya llevas demasiadas cosas.";
-     13: "(colocas ", (the) x1, " en ", (the) SACK_OBJECT,
-         " para hacer sitio)";
+    switch (n) {
+!      1: "Hecho."; ! [infsp] fixed, no se pasa el objeto
+       1: if (dialecto_sudamericano) print "Tomad";
+          else                       print "Cogid";
+          print_ret (o) noun, ".";
+       2: "Siempre ", (se_) " ", (tienes_) " a ", (ti_) " mism", (o) player, ".";
+       3: "No creo que ", (al) x1, " le", (s) x1, " gustara.";
+       4: print "", (_Tienes_) " que ";
+          if (x1 has supporter) print "bajar", (se_) " "; else print "salir", (se_) " ";
+          print_ret (del) x1, " antes.";
+       5: "Ya ", (tienes_) " ", (the) x1, ".";
+       6: "Parece que pertenece", (n) noun, " ", (al) x1, ".";
+       7: "Parece", (n) noun, " formar parte ", (del) x1, ".";
+       8: "No ", (esta) x1, " disponible", (s) x1, ".";
+       9: print_ret (The) x1, " no ", (esta) x1, " abiert", (o) x1, ".";
+      10: "Difícilmente podr", (ia_) " llevar", (se_) " eso.";
+      11: print_ret (The) x1, " está fij", (o) x1, " en el sitio.";
+      12: "Ya llev", (_o_) " demasiadas cosas.";
+      13: "(coloc", (_o_) " ", (the) x1, " en ", (the) SACK_OBJECT,
+          " para hacer sitio)";
     }
 
-   Taste: "No saboreas nada inesperado.";
+  Taste: "No sabore", (_o_) " nada inesperado.";
   
-   Tell:
+  Tell:
     ! Dos casos:
     !  1: El jugador habla consigo mismo
     !  2: Hablar con cualquier otro ser animado
@@ -3209,32 +3812,30 @@ Constant PARTICULA_TE  = "te";
     ! parser, que da un error y no llega a generar la acción]
     ! [Los errores de parser se tratan en la sección "Miscelanea" de
     ! esta rutina, al final]
-    switch(n)
-    {
-     1: "Hablas sol", (o) player, " durante un rato.";
-     2: "No has provocado ninguna reacción.";
+    switch (n) {
+      1: "Habl", (_o_) " sol", (o) player, " durante un rato.";
+      2: "No h", (e_) " provocado ninguna reacción.";
     }
     
-   Think:        "Vaya. Qué buena idea.";
-   ThrowAt:
+  Think:   "Vaya. Qué buena idea.";
+  ThrowAt:
     ! Dos casos:
     !  1: Lanzar cosas a objetos inanimados
     !  2: Lanzar cosas a objetos animados
-    switch(n)
-    {
-     1: "No serviría de nada.";
-     2: "En el último momento te echas atrás.";
+    switch (n) {
+      1: "No serviría de nada.";
+      2: "En el último momento ", (se_) " ech", (_o_) " atrás.";
     }
+
 ! Tie:  see JumpOver.
   Touch:
     ! Tocar genera tres mensajes diferentes
     !  1: Si se intenta tocar a un ser animado
     !  2: Tocar un objeto normal del juego
     !  3: Tocarse a si mismo
-    switch(n)
-    {
+    switch (n) {
       1: "¡Las manos quietas!";
-      2: "No notas nada extraño al tacto.";
+      2: "No not", (_o_) " nada extraño al tacto.";
       3: "Si crees que eso servirá de algo...";
     }
 ! Turn: see Pull.
@@ -3253,42 +3854,39 @@ Constant PARTICULA_TE  = "te";
     !     intenta ser abierto.
     !  4: Exito. El <objeto> se abre (con <objeto2> si éste ha sido
     !     especificado, el cual podemos encontrarlo en la variable "otro"
-    switch(n)
-    {
-     1: "No parece", (n) x1," tener ningún tipo de cerrojo.";
-     2:    print_ret (The) x1, " ya tenía", (n) x1, " abierto el cerrojo.";
-     3: if (second) "No parece", (n) x1, " encajar en la cerradura.";
-    "Necesitas algún tipo de llave.";
-     4: if (second) "Quitas el cerrojo ", (al) x1, " con ", (the) second, ".";
-    "Quitas el cerrojo ", (al) x1, ".";
+    switch (n) {
+      1: "No parece", (n) x1," tener ningún tipo de cerrojo.";
+      2: print_ret (The) x1, " ya tenía", (n) x1, " abierto el cerrojo.";
+      3: if (second) "No parece", (n) x1, " encajar en la cerradura.";
+         "Necesit", (_o_) " algún tipo de llave.";
+      4: if (second) "Quit", (_o_) " el cerrojo ", (al) x1, " con ", (the) second, ".";
+         "Quit", (_o_) " el cerrojo ", (al) x1, ".";
     }
 
  VagueGo: ! El jugador ha dicho IR sin especificar a dónde
-    "Tienes que especificar en qué dirección ir.";
+    "", (_Tienes_) " que especificar en qué dirección ir.";
     
  Verify:
     ! 1: Éxito
     ! 2: Error en la verificación
-    switch(n)
-    {
-     1: "Fichero de juego verificado e intacto.";
-     2: "El fichero de juego no parece intacto, puede estar corrompido
-    (a menos que estés jugando con un intérprete muy primitivo que
-    no sea capaz de realizar la comprobación).";
+    switch (n) {
+      1: "Fichero de juego verificado e intacto.";
+      2: "El fichero de juego no parece intacto, puede estar corrompido
+         (a menos que estés jugando con un intérprete muy primitivo que
+         no sea capaz de realizar la comprobación).";
     }
-   Wait:        "Pasa el tiempo...";
-   Wake:   "La cruda realidad es que esto no es un sueño.";
+   Wait:      "Pasa el tiempo...";
+   Wake:      "La cruda realidad es que esto no es un sueño.";
    WakeOther: "No parece necesario hacer eso.";
    Wave:
   ! Agitar genera dos mensajes diferentes:
   !  1: Si se intenta agitar un objeto que no está en el inventario
   !  2: Si se agita un objeto que sí está en el inventario
-    switch (n)
-    {
-      1: "No l",(o) x1, " tienes.";
-      2: "Te sientes ridícul", (o) player, " agitando ", (the) x1, ".";
+    switch (n) {
+      1: "No l", (o) x1, " ", (tienes_) ".";
+      2: "Te ", (sientes_) " ridícul", (o) player, " agitando ", (the) x1, ".";
     }
-   WaveHands:  "Te ves ridícul", (o) player, " gesticulando así.";
+   WaveHands: "Te v", (es__) " ridícul", (o) player, " gesticulando así.";
   ! La acción Gesticular sale ante las frases "gesticula", "agita la
   ! mano", "sacude la mano", "saluda con la mano"...
    Wear:
@@ -3296,12 +3894,11 @@ Constant PARTICULA_TE  = "te";
     !  2: Error, el jugador no tiene el objeto
     !  3: Error, el objeto ya tiene el atributo "puesto"
     !  4: Exito.
-    switch(n)
-    {
-     1: "¡No puedes ponerte eso!";
-     2: "No ", (lo) x1, " tienes.";
-     3: "¡Ya ", (lo) x1, " llevas puest", (o) x1, "!.";
-     4: "Te pones ", (the) x1, ".";
+    switch (n) {
+      1: "¡No ", (puedes_) " ponerte eso!";
+      2: "No ", (lo) x1, " ", (tienes_) ".";
+      3: "¡Ya ", (lo) x1, " llev", (_o_) " puest", (o) x1, "!.";
+      4: "", (_Te_) " ", (pones_) " ", (the) x1, ".";
     }
 ! Yes:  see No.
 ];
