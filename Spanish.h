@@ -1888,7 +1888,7 @@ Constant TERCERA_PERSONA  = $$00100;
 Constant PERSONA_SINGULAR = $$01000;
 Constant PERSONA_PLURAL   = $$10000;
 
-Property persona;
+Property persona alias number;
 
 [ te_ x;
   if (player provides persona) {
