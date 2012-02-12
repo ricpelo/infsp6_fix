@@ -40,6 +40,7 @@ Replace BestGuess;
 Replace NounDomain;
 Replace Parser__parse;
 Replace ReviseMulti;
+Replace ChangePlayer;
 
 
 ! ---------------------------------------------------------------------------
@@ -100,6 +101,16 @@ Global quitacentos = 1;
 Array  texto_impreso --> 52;
 
 Global dialecto_sudamericano = 0;
+
+Global FORMER__TX    = "tu antiguo ~yo~";
+Global YOURSELF__TX  = "ti mismo";
+Global CANTGO__TX    = "No puedes ir por ahí.";
+Global IS__TX        = " ves";
+Global ARE__TX       = " ves";
+Global IS2__TX       = "ves ";
+Global ARE2__TX      = "ves ";
+Global YOU__TX       = "Tú";
+Global PARTICULA_TE  = "te";
 
 !---------------------------------------------------------------------------
 ! Atributos y propiedades específicas de InformatE!, tambien usados en INFSP
@@ -1872,16 +1883,6 @@ Constant COMMA__TX     = ", ";
   Message "> Spanish: AVISO - Omitiendo los mensajes estandares de la libreria";
 #ifnot; 
 
-Constant FORMER__TX    = "tu antiguo ~yo~";
-Constant YOURSELF__TX  = "ti mismo";
-Constant CANTGO__TX    = "No puedes ir por ahí.";
-Constant IS__TX        = " ves";
-Constant ARE__TX       = " ves";
-Constant IS2__TX       = "ves ";
-Constant ARE2__TX      = "ves ";
-Constant YOU__TX       = "Tú";
-Constant PARTICULA_TE  = "te";
-
 Constant PRIMERA_PERSONA  = $$00001;
 Constant SEGUNDA_PERSONA  = $$00010;
 Constant TERCERA_PERSONA  = $$00100;
@@ -1890,12 +1891,137 @@ Constant PERSONA_PLURAL   = $$10000;
 
 Property persona alias number;
 
+[ AsignarPersona per;
+  player.persona = per;
+  if (player provides persona) {
+    if (player.persona & TERCERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) {
+        FORMER__TX    = "su antiguo ~yo~";
+        CANTGO__TX    = "No pueden ir por ahí.";
+        IS__TX        = " ven";
+        ARE__TX       = " ven";
+        IS2__TX       = "ven ";
+        ARE2__TX      = "ven ";
+        PARTICULA_TE  = "se";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "ellas mismas";
+          YOU__TX       = "Ellas";
+        } else {
+          YOURSELF__TX  = "ellos mismos";
+          YOU__TX       = "Ellos";
+        }
+      } else {
+        FORMER__TX    = "su antiguo ~yo~";
+        CANTGO__TX    = "No puede ir por ahí.";
+        IS__TX        = " ve";
+        ARE__TX       = " ve";
+        IS2__TX       = "ve ";
+        ARE2__TX      = "ve ";
+        PARTICULA_TE  = "le";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "ella misma";
+          YOU__TX       = "Ella";
+        } else {
+          YOURSELF__TX  = "él mismo";
+          YOU__TX       = "Él";
+        }
+      }
+    } else if (player.persona & PRIMERA_PERSONA) {
+      if (player.persona & PERSONA_PLURAL) {
+        FORMER__TX    = "nuestro antiguo ~yo~";
+        CANTGO__TX    = "No podemos ir por ahí.";
+        IS__TX        = " vemos";
+        ARE__TX       = " vemos";
+        IS2__TX       = "vemos ";
+        ARE2__TX      = "vemos ";
+        PARTICULA_TE  = "nos";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "nosotras mismas";
+          YOU__TX       = "Nosotras";
+        } else {
+          YOURSELF__TX  = "nosotros mismos";
+          YOU__TX       = "Nosotros";
+        }
+      } else {
+        FORMER__TX    = "mi antiguo ~yo~";
+        CANTGO__TX    = "No puedo ir por ahí.";
+        IS__TX        = " veo";
+        ARE__TX       = " veo";
+        IS2__TX       = "veo ";
+        ARE2__TX      = "veo ";
+        PARTICULA_TE  = "me";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "nosotras mismas";
+          YOU__TX       = "Nosotras";
+        } else {
+          YOURSELF__TX  = "nosotros mismos";
+          YOU__TX       = "Nosotros";
+        }      
+      }
+    } else { ! Segunda persona
+      if (player.persona & PERSONA_PLURAL) {
+        FORMER__TX    = "vuestro antiguo ~yo~";
+        CANTGO__TX    = "No podéis ir por ahí.";
+        IS__TX        = " veis";
+        ARE__TX       = " veis";
+        IS2__TX       = "veis ";
+        ARE2__TX      = "veis ";
+        PARTICULA_TE  = "os";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "vosotras mismas";
+          YOU__TX       = "Vosotras";
+        } else {
+          YOURSELF__TX  = "vosotros mismos";
+          YOU__TX       = "Vosotros";
+        }      
+      } else {
+        FORMER__TX    = "tu antiguo ~yo~";
+        CANTGO__TX    = "No puedes ir por ahí.";
+        IS__TX        = " ves";
+        ARE__TX       = " ves";
+        IS2__TX       = "ves ";
+        ARE2__TX      = "ves ";
+        PARTICULA_TE  = "te";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+          YOURSELF__TX  = "ti misma";
+          YOU__TX       = "Tú";
+        } else {
+          YOURSELF__TX  = "ti mismo";
+          YOU__TX       = "Tú";
+        }            
+      }
+    }
+  } else { ! Por defecto, segunda persona del singular
+    FORMER__TX    = "tu antiguo ~yo~";
+    CANTGO__TX    = "No puedes ir por ahí.";
+    IS__TX        = " ves";
+    ARE__TX       = " ves";
+    IS2__TX       = "ves ";
+    ARE2__TX      = "ves ";
+    PARTICULA_TE  = "te";
+    if (player has female || (player provides gender &&
+        player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+      YOURSELF__TX  = "ti misma";
+      YOU__TX       = "Tú";
+    } else {
+      YOURSELF__TX  = "ti mismo";
+      YOU__TX       = "Tú";
+    }            
+  }
+];
+
 [ te_ x;
   if (player provides persona) {
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "les";
       else                                 print "le";
-    } else if (player.persona & PRIMERA_PERSONA){
+    } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "nos";
       else                                 print "me";
     } else { ! Segunda persona
@@ -1913,7 +2039,7 @@ Property persona alias number;
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "se";
       else                                 print "se";
-    } else if (player.persona & PRIMERA_PERSONA){
+    } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "nos";
       else                                 print "me";
     } else { ! Segunda persona
@@ -1931,7 +2057,7 @@ Property persona alias number;
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "ellos";
       else                                 print "sí";
-    } else if (player.persona & PRIMERA_PERSONA){
+    } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "nosotros";
       else                                 print "mí";
     } else { ! Segunda persona
@@ -1949,7 +2075,7 @@ Property persona alias number;
     if (player.persona & TERCERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "Les";
       else                                 print "Le";
-    } else if (player.persona & PRIMERA_PERSONA){
+    } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) print "Nos";
       else                                 print "Me";
     } else { ! Segunda persona
@@ -1969,13 +2095,19 @@ Property persona alias number;
       else                                 print "su";
     } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) {
-        print "nuestr"; if (player has female) print "a"; else print "o";
+        print "nuestr";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
+        else                                                       print "o";
       } else {
         print "mi";
       }
     } else { ! Segunda persona
       if (player.persona & PERSONA_PLURAL) {
-        print "vuestr"; if (player has female) print "a"; else print "o";
+        print "vuestr";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
+        else                                                       print "o";
       } else {
         print "tu";
       }
@@ -1993,13 +2125,19 @@ Property persona alias number;
       else                                 print "Su";
     } else if (player.persona & PRIMERA_PERSONA) {
       if (player.persona & PERSONA_PLURAL) {
-        print "Nuestr"; if (noun has female) print "a"; else print "o";
+        print "Nuestr";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
+        else                                                       print "o";
       } else {
         print "Mi";
       }
     } else { ! Segunda persona
       if (player.persona & PERSONA_PLURAL) {
-        print "Vuestr"; if (noun has female) print "a"; else print "o";
+        print "Vuestr";
+        if (player has female || (player provides gender &&
+            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
+        else                                                       print "o";
       } else {
         print "Tu";
       }
@@ -3463,9 +3601,22 @@ Property persona alias number;
         2:  print ".^";
     }
 
-  Pray: x1 = player has female; give player female;
-        print "No ob", (tienes_) " nada práctico de ", (tu_) "s oraciones.^";
-        if (~~x1) give player ~female; rtrue;
+  Pray: print "No ob", (tienes_) " nada práctico de ";
+        if (player provides persona) {
+           if (player.persona & TERCERA_PERSONA) {
+             if (player.persona & PERSONA_PLURAL) print "su";
+             else                                 print "su";
+           } else if (player.persona & PRIMERA_PERSONA) {
+             if (player.persona & PERSONA_PLURAL) print "nuestra";
+             else                                 print "mi";
+           } else { ! Segunda persona
+             if (player.persona & PERSONA_PLURAL) print "vuestra";
+             else                                 print "tu";
+           }
+         } else { ! Por defecto, segunda persona del singular
+           print "tu";
+         }        
+        "s oraciones.^";
 
   Prompt:
     print "^>";
@@ -3910,8 +4061,10 @@ Property persona alias number;
 [ TextoLlamativo txt;
     ! Imprime un texto rodeado de asteriscos y en negrita. 
     ! Puedes cambiarlo si quieres que aparezcan en otros formatos.
+
 #ifdef TARGET_ZCODE;
     #IFV5; style bold; #ENDIF;
+
 #ifnot; ! TARGET_GLULX
      glk($0086, 5); ! set alert style
 #endif; ! TARGET_

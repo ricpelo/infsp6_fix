@@ -20,15 +20,16 @@
 ! ------------------------------------
 ! Rutinas Hackeadas:
 !                   DictionaryLookup          BUG
-!                   BestGuess                 SP PATCH        
-!                   Identical                 SP PATCH        
-!                   PrefaceByArticle          SP PATCH        
-!                   TryGivenObject            SP PATCH        
-!                   NounDomain                SP PATCH        
-!                   Indefart                  SP PATCH        
-!                   CInDefArt                 SP PATCH        
-!                   Parser__parse             SP PATCH       
-!                   ReviseMulti               SP PATCH       
+!                   BestGuess                 SP PATCH
+!                   Identical                 SP PATCH
+!                   PrefaceByArticle          SP PATCH
+!                   TryGivenObject            SP PATCH
+!                   NounDomain                SP PATCH
+!                   Indefart                  SP PATCH
+!                   CInDefArt                 SP PATCH
+!                   Parser__parse             SP PATCH
+!                   ReviseMulti               SP PATCH
+!                   ChangePlayer              SP PATCH
 
 
 ! Definicion de bufferaux y parseraux, usados en DictionaryLookup [001115]
@@ -627,6 +628,7 @@
     buffer->(k+l-1) = ' ';
     buffer->1 = buffer->1 + l;
     if (buffer->1 >= (buffer->0 - 1)) buffer->1 = buffer->0;
+
     #Ifnot; ! TARGET_GLULX
     k = WordAddress(match_from) - buffer;
     l = (buffer2-->0) + 1;
@@ -785,6 +787,7 @@
     PrefaceByArticle(o, 2); indef_mode = i;
 ];
 
+#ifdef INFSPR_adv;Message "   Incluyendo reemplazo CInDefArt"; #endif;
 [ CInDefArt o i;
     i = indef_mode; indef_mode = true;
     if (o has proper) { indef_mode = NULL; print "a ",(PSN__) o; indef_mode = i; return; }
@@ -796,7 +799,7 @@
 ];
 
 ! #############################################################################
-
+#ifdef INFSPR_adv;Message "   Incluyendo reemplazo Parser__parse"; #endif;
 [ Parser__parse  results   syntax line num_lines line_address i j k
                            token l m;
 
@@ -1685,6 +1688,7 @@
 ! ====================================================
 ! Usamos TestScope en lugar de ScopeCeiling
 !
+#ifdef INFSPR_adv;Message "   Incluyendo reemplazo ReviseMulti"; #endif;
 [ ReviseMulti second_p  i low;
     #Ifdef DEBUG;
     if (parser_trace >= 4) print "   Revising multiple object list of size ", multiple_object-->0,
@@ -1726,6 +1730,36 @@
     if (i == 0) return NOTHING_PE;
     return 0;
 ];
+
+! ====================================================
+! Usamos TestScope en lugar de ScopeCeiling
+!
+#ifdef INFSPR_adv;Message "   Incluyendo reemplazo ChangePlayer"; #endif;
+[ ChangePlayer obj flag i;
+! if (obj.&number == 0) return RunTimeError(7,obj);
+  if (actor == player) actor=obj;
+  give player ~transparent ~concealed;
+  i = obj; while (parent(i) ~= 0) {
+      if (i has animate) give i transparent;
+      i = parent(i);
+  }
+  if (player == selfobj) player.short_name = FORMER__TX;
+
+  player = obj;
+
+  if (player provides persona) AsignarPersona(player.persona); ! (c) Alpha
+
+  if (player == selfobj) player.short_name = NULL;
+  give player transparent concealed animate proper;
+  i = player; while (parent(i) ~= 0) i = parent(i);
+  location = i; real_location = location;
+  if (parent(player) == 0) return RunTimeError(10);
+  MoveFloatingObjects();
+  lightflag = OffersLight(parent(player));
+  if (lightflag == 0) location = thedark;
+  print_player_flag = flag;
+];
+
 
 ! ------------------------------------
 ! Verlib Replace Section
