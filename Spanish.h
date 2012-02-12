@@ -2960,7 +2960,7 @@ Property persona alias number;
     !  3 y 4: [6/11]
     switch (n) {
       1: "No llev", (as_) " nada.";
-      2: print "Llev", (as_) ":";
+      2: print "Llev", (as_) "";
       3: print ":^";
       4: print ".^";
     }
