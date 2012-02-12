@@ -829,9 +829,9 @@ Verb meta 'xlista'
     debug_flag=0; ! Desactivar trazado de give (para no cansar con tanto 'nombreusado' cambiando continuamente)
    #endif;
     give obj ~nombreusado; ! resetear nombreusado (quitar nombreusado)
-    gen=5;    ! 1=masculino,        2=femenino,
-              ! 3=masculino plural, 4=femenino plural
-              ! 5=sin determinar
+    gen=7;    ! 0,1=masculino,        2=femenino,
+              ! 4,5=masculino plural, 6=femenino plural
+              ! 7=sin determinar
 
     while(seguir)
     {
@@ -851,7 +851,7 @@ Verb meta 'xlista'
           ! Una palabra que se refiere al objeto
       {
         if (p) dict_flags_of_noun = (p->#dict_par1) & $$01110100;
-        if (gen==5) gen=G_FEMENINO;
+        if (gen==7) gen=G_FEMENINO;
         n++;            ! la contamos
         n=n+dudas;      ! añadimos todos los "de" "la"...
                         ! que estaban sin contar
@@ -863,7 +863,7 @@ Verb meta 'xlista'
           ! Una palabra que se refiere al objeto
       {
         if (p) dict_flags_of_noun = (p->#dict_par1) & $$01110100;
-        if (gen==5) gen=G_MASCULINO+G_PLURAL;
+        if (gen==7) gen=G_MASCULINO+G_PLURAL;
         n++;            ! la contamos
         n=n+dudas;      ! añadimos todos los "de" "la"...
                         ! que estaban sin contar
@@ -873,7 +873,7 @@ Verb meta 'xlista'
       if (WordInProperty(p, obj, name_fp))
       {
         if (p) dict_flags_of_noun = (p->#dict_par1) & $$01110100;
-        if (gen==5) gen=G_FEMENINO+G_PLURAL;
+        if (gen==7) gen=G_FEMENINO+G_PLURAL;
         n++;            ! la contamos
         n=n+dudas;      ! añadimos todos los "de" "la"...
                         ! que estaban sin contar
@@ -887,7 +887,7 @@ Verb meta 'xlista'
             ! Una palabra que se refiere al objeto
       {
         if (p) dict_flags_of_noun = (p->#dict_par1) & $$01110100;
-        if (gen==5) gen=G_MASCULINO;
+        if (gen==7) gen=G_MASCULINO;
         n++;            ! la contamos
         n=n+dudas;      ! añadimos todos los "de" "la"...
                         ! que estaban sin contar
@@ -928,11 +928,11 @@ Verb meta 'xlista'
           ! Bug corregido en 001030
           1: give obj ~female ~pluralname; !infsp fix for I7 compatibility (en I7 no se puede asignar el 0 a gender, de 1 para arriba, sí)
           2: give obj female ~pluralname;  !print " FEMALE GIVEN "; !infsp debug
-          3: give obj ~female pluralname;
-          4: give obj female pluralname;
+          4,5: give obj ~female pluralname;
+          6: give obj female pluralname;
         }
 
-    if (gen<5) give obj nombreusado; !si el matcheo fue por adjetives, entonces gen=5
+    if (gen<7) give obj nombreusado; !si el matcheo fue por adjetives, entonces gen=7
                                      !   y nombreusado no se pone.                            
 !!    if (obj provides gender) obj.gender=gen; ! esta linea siempre esta comentariada
     

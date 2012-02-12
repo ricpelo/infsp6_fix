@@ -261,7 +261,7 @@
     i=o.gender;
     if (i==1) ! infsp : esto es una chanchada, pero al cambiarse los valores de 'gender' por lo de la 
        i=0;   ! compatibilidad con I7 (donde no puede ponerse gender = 0), quedo desfasado el array
-    if (i==2) ! LanguageGNAsToArticles. TODO: correjir el array y testear estabilidad.
+    if (i==2) ! LanguageGNAsToArticles. TODO: corregir el array y testear estabilidad.
        i=1;
    }else{ i = GetGNAOfObject(o);}
 

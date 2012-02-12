@@ -73,9 +73,9 @@ Constant LanguageVersion = "Librería Española INFSP 0.9 [901.21], basada en Info
 !Constant G_MASCULINO = 0;
 !Constant G_FEMENINO  = 1;
 !Constant G_PLURAL    = 3;
-Constant G_MASCULINO = 1; ! infsp new approach: para hacerlo bicompatible: I6/I7
-Constant G_FEMENINO  = 2;
-Constant G_PLURAL    = 2;
+Constant G_MASCULINO = $$001; ! 1 infsp new approach: para hacerlo bicompatible: I6/I7
+Constant G_FEMENINO  = $$010; ! 2
+Constant G_PLURAL    = $$100; ! 4
 
 Class VerboIrregular;
 
