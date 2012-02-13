@@ -1903,8 +1903,7 @@ Property persona alias number;
         IS2__TX       = "ven ";
         ARE2__TX      = "ven ";
         PARTICULA_TE  = "se";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "ellas mismas";
           YOU__TX       = "Ellas";
         } else {
@@ -1919,8 +1918,7 @@ Property persona alias number;
         IS2__TX       = "ve ";
         ARE2__TX      = "ve ";
         PARTICULA_TE  = "le";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "ella misma";
           YOU__TX       = "Ella";
         } else {
@@ -1937,8 +1935,7 @@ Property persona alias number;
         IS2__TX       = "vemos ";
         ARE2__TX      = "vemos ";
         PARTICULA_TE  = "nos";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "nosotras mismas";
           YOU__TX       = "Nosotras";
         } else {
@@ -1953,8 +1950,7 @@ Property persona alias number;
         IS2__TX       = "veo ";
         ARE2__TX      = "veo ";
         PARTICULA_TE  = "me";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "nosotras mismas";
           YOU__TX       = "Nosotras";
         } else {
@@ -1971,8 +1967,7 @@ Property persona alias number;
         IS2__TX       = "veis ";
         ARE2__TX      = "veis ";
         PARTICULA_TE  = "os";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "vosotras mismas";
           YOU__TX       = "Vosotras";
         } else {
@@ -1987,8 +1982,7 @@ Property persona alias number;
         IS2__TX       = "ves ";
         ARE2__TX      = "ves ";
         PARTICULA_TE  = "te";
-        if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+        if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
           YOURSELF__TX  = "ti misma";
           YOU__TX       = "Tú";
         } else {
@@ -2005,8 +1999,7 @@ Property persona alias number;
     IS2__TX       = "ves ";
     ARE2__TX      = "ves ";
     PARTICULA_TE  = "te";
-    if (player has female || (player provides gender &&
-        player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) {
+    if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
       YOURSELF__TX  = "ti misma";
       YOU__TX       = "Tú";
     } else {
@@ -2097,8 +2090,8 @@ Property persona alias number;
       if (player.persona & PERSONA_PLURAL) {
         print "nuestr";
         if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
-        else                                                       print "o";
+            player.gender & G_FEMENINO)) print "a";
+        else                             print "o";
       } else {
         print "mi";
       }
@@ -2106,8 +2099,8 @@ Property persona alias number;
       if (player.persona & PERSONA_PLURAL) {
         print "vuestr";
         if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
-        else                                                       print "o";
+            player.gender & G_FEMENINO)) print "a";
+        else                             print "o";
       } else {
         print "tu";
       }
@@ -2127,8 +2120,8 @@ Property persona alias number;
       if (player.persona & PERSONA_PLURAL) {
         print "Nuestr";
         if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
-        else                                                       print "o";
+            player.gender & G_FEMENINO)) print "a";
+        else                             print "o";
       } else {
         print "Mi";
       }
@@ -2136,8 +2129,8 @@ Property persona alias number;
       if (player.persona & PERSONA_PLURAL) {
         print "Vuestr";
         if (player has female || (player provides gender &&
-            player.gender == G_FEMENINO or G_FEMENINO + G_PLURAL)) print "a";
-        else                                                       print "o";
+            player.gender & G_FEMENINO)) print "a";
+        else                             print "o";
       } else {
         print "Tu";
       }
