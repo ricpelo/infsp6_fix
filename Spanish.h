@@ -1975,6 +1975,7 @@ Property persona alias number;
           YOU__TX       = "Vosotros";
         }      
       } else {
+.SegundaSingular;
         FORMER__TX    = "tu antiguo ~yo~";
         CANTGO__TX    = "No puedes ir por ahí.";
         IS__TX        = " ves";
@@ -1991,22 +1992,7 @@ Property persona alias number;
         }            
       }
     }
-  } else { ! Por defecto, segunda persona del singular
-    FORMER__TX    = "tu antiguo ~yo~";
-    CANTGO__TX    = "No puedes ir por ahí.";
-    IS__TX        = " ves";
-    ARE__TX       = " ves";
-    IS2__TX       = "ves ";
-    ARE2__TX      = "ves ";
-    PARTICULA_TE  = "te";
-    if (player has female || (player provides gender && player.gender & G_FEMENINO)) {
-      YOURSELF__TX  = "ti misma";
-      YOU__TX       = "Tú";
-    } else {
-      YOURSELF__TX  = "ti mismo";
-      YOU__TX       = "Tú";
-    }            
-  }
+  } else jump SegundaSingular;
 ];
 
 [ te_ x;
