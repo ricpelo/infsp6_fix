@@ -259,10 +259,14 @@
 
    if (o provides gender){ ![infsp]'gender'(informATE exclusive) es el genero de short_name del objeto
     i=o.gender;
-    if (i==1) ! infsp : esto es una chanchada, pero al cambiarse los valores de 'gender' por lo de la 
-       i=0;   ! compatibilidad con I7 (donde no puede ponerse gender = 0), quedo desfasado el array
-    if (i==2) ! LanguageGNAsToArticles. TODO: corregir el array y testear estabilidad.
-       i=1;
+    if (i==1)      ! infsp : esto es una chanchada, pero al cambiarse los valores de 'gender' por lo de la 
+       i=0;        ! compatibilidad con I7 (donde no puede ponerse gender = 0), quedo desfasado el array
+    else if (i==2) ! LanguageGNAsToArticles. TODO: corregir el array y testear estabilidad.
+       i=1;        !
+    else if (i==4 or 5) ! Todos estos los incluyo yo (Sothoth)...
+       i=3;             ! para ajustar el array...
+    else if (i==6)      ! al nuevo valor...
+       i=4;             ! de G_PLURAL
    }else{ i = GetGNAOfObject(o);}
 
 !    print "^pluralise:",pluralise; ![infsp] debug
