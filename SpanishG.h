@@ -82,16 +82,44 @@ System_file; ! for supress warnings in I6 environment
 ];
 
 ifdef ADMITIR_COMANDO_SALIDAS;
-  [ SalidasSub i flag flag2 j loc;
+  [ SalidasSub i flag flag2 j loc total;
     print "Salidas visibles:";
-    if (location == thedark)
-      loc = real_location;
-    else
-      loc = location;
+    if (location == thedark) loc = real_location;
+    else                     loc = location;
     j = 0;
     objectloop (i in compass) {
-      if (loc provides Salidas)
-        switch (loc.Salidas (i)) !se envia el objeto de la brujula como parametro
+      if (loc provides salidas)
+        switch (loc.salidas (i)) !se envia el objeto de la brujula como parametro
+        {
+          false:
+            flag  = false;           ! Show la salida si existe la
+            flag2 = false;           ! propiedad al_* y no es un string.
+          true:
+            j++;                     ! La dirección ya ha sido escrita.
+            flag2 = true;
+          2:
+            flag2 = true;            ! No imprimir esta.
+          default:
+            flag  = true;            ! Imprimirla siempre.
+        };  ! de switch
+
+        if (loc provides (i.door_dir) &&
+          metaclass (loc.(i.door_dir)) ~= nothing or string ||
+          flag == true && flag2 == false)
+        {
+          j++;
+        }  ! de if
+    }  ! de objectloop
+
+    if (j == 0)
+      " ninguna.";
+
+    total = j;
+    j = 0;
+
+    objectloop (i in compass) {
+      if (loc provides salidas)
+        switch (loc.salidas (i)) !se envia el objeto de la brujula como parametro
         {
           false:
             flag  = false;           ! Show la salida si existe la
@@ -111,14 +139,14 @@ ifdef ADMITIR_COMANDO_SALIDAS;
         {
           if (j == 0)
             print " ";
+          else if (j == total - 1)
+            print " y ";
           else
             print ", ";
           LanguageDirection (i.door_dir);
           j++;
         }  ! de if
     }  ! de objectloop
-    if (j == 0)
-      " ninguna.";
     ".";        ! ELIUK BLAU: antes hacia dos saltos de linea al final, cuando
                 ! en realidad debía hacer solo uno. (el otro salto lo agrega el PROMPT mismo)
   ];
