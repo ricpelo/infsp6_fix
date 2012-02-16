@@ -1993,6 +1993,7 @@ Property persona alias number;
       }
     }
   } else jump SegundaSingular;
+  ChangeDefault(cant_go, CANTGO__TX);
 ];
 
 [ te_ x;
