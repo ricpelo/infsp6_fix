@@ -1815,34 +1815,28 @@ Constant COMMA__TX     = ", ";
 
 
 [ LanguagePrintShortName obj aux;
-
-    aux=aux;
-    if (obj provides gender)
-    {
-    if (parser_trace>=10)
-        print "[",  obj, " tiene ~genero~=", obj.gender,
-            ".]^";
-#ifdef DEBUG;
-    aux=debug_flag; debug_flag=0;
-#endif;
-        switch(obj.gender) 
-        {
-          1: give obj ~female ~pluralname; !infsp fix for I7 compatibility (en I7 no se puede asignar el 0 a gender, de 1 para arriba si)
-          2: give obj female ~pluralname;!print " FEMALE GIVEN "; !infsp debug
-          3: give obj ~female pluralname;
-          4: give obj female pluralname;
-        }
-#ifdef DEBUG;
-    debug_flag=aux;
-#endif;
-        rfalse;
+  aux = aux;
+  if (obj provides gender) {
+    if (parser_trace >= 10)
+      print "[",  obj, " tiene ~genero~=", obj.gender, ".]^";
+    #ifdef DEBUG;
+    aux = debug_flag; debug_flag = 0;
+    #endif;
+    switch (obj.gender) {
+      0,1: give obj ~female ~pluralname; ! infsp fix for I7 compatibility (en I7 no se puede asignar el 0 a gender, de 1 para arriba si)
+        2: give obj female ~pluralname;  ! print " FEMALE GIVEN "; !infsp debug
+      4,5: give obj ~female pluralname;
+        6: give obj female pluralname;
     }
-    
-    else{
-!    if (parser_trace>=10)
-!        print "[", obj, " no tiene la propiedad ~genero~.]";
+    #ifdef DEBUG;
+    debug_flag = aux;
+    #endif;
     rfalse;
-    }
+  } else {
+!   if (parser_trace>=10)
+!     print "[", obj, " no tiene la propiedad ~genero~.]";
+      rfalse;
+  }
 ];
 
 ! Esta función de elegir objetos asigna más puntuación al objeto que
