@@ -1882,6 +1882,13 @@ Constant SEGUNDA_PERSONA  = $$00010;
 Constant TERCERA_PERSONA  = $$00100;
 Constant PERSONA_SINGULAR = $$01000;
 Constant PERSONA_PLURAL   = $$10000;
+! Para los switch:
+Constant PRIMERA_PERSONA_SINGULAR = PRIMERA_PERSONA + PERSONA_SINGULAR;
+Constant SEGUNDA_PERSONA_SINGULAR = SEGUNDA_PERSONA + PERSONA_SINGULAR;
+Constant TERCERA_PERSONA_SINGULAR = TERCERA_PERSONA + PERSONA_SINGULAR;
+Constant PRIMERA_PERSONA_PLURAL   = PRIMERA_PERSONA + PERSONA_PLURAL;
+Constant SEGUNDA_PERSONA_PLURAL   = SEGUNDA_PERSONA + PERSONA_PLURAL;
+Constant TERCERA_PERSONA_PLURAL   = TERCERA_PERSONA + PERSONA_PLURAL;
 
 Property persona alias number;
 
@@ -1990,575 +1997,262 @@ Property persona alias number;
   ChangeDefault(cant_go, CANTGO__TX);
 ];
 
-[ te_ x;
+[ ti_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "les";
-      else                                 print "le";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "nos";
-      else                                 print "me";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "os";
-      else                                 print "te";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "mí";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "ti";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "sí";
+      PRIMERA_PERSONA_PLURAL:   print "nosotr";
+        if (player has female || (player provides gender &&
+            player.gender & G_FEMENINO))  print "as";
+        else                              print "os";
+      SEGUNDA_PERSONA_PLURAL:   print "vosotr";
+        if (player has female || (player provides gender &&
+            player.gender & G_FEMENINO))  print "as";
+        else                              print "os";
+      TERCERA_PERSONA_PLURAL:   print "ell";
+        if (player has female || (player provides gender &&
+            player.gender & G_FEMENINO))  print "as";
+        else                              print "os";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "te";
-  }
+  } else print "ti";
   print (string) x;
 ];
 
 [ se_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "se";
-      else                                 print "se";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "nos";
-      else                                 print "me";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "os";
-      else                                 print "te";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "me";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "te";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "se";
+      PRIMERA_PERSONA_PLURAL:   print "nos";
+      SEGUNDA_PERSONA_PLURAL:   print "os";
+      TERCERA_PERSONA_PLURAL:   print "se";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "te";
-  }
+  } else print "te";
   print (string) x;
 ];
 
-[ ti_ x;
+[ te_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "ellos";
-      else                                 print "sí";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "nosotros";
-      else                                 print "mí";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "vosotros";
-      else                                 print "ti";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "me";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "te";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "le";
+      PRIMERA_PERSONA_PLURAL:   print "nos";
+      SEGUNDA_PERSONA_PLURAL:   print "os";
+      TERCERA_PERSONA_PLURAL:   print "les";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "ti";
-  }
+  } else print "te";
   print (string) x;
 ];
 
 [ _Te_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Les";
-      else                                 print "Le";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Nos";
-      else                                 print "Me";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Os";
-      else                                 print "Te";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Me";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Te";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Le";
+      PRIMERA_PERSONA_PLURAL:   print "Nos";
+      SEGUNDA_PERSONA_PLURAL:   print "Os";
+      TERCERA_PERSONA_PLURAL:   print "Les";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "Te";
-  }
+  } else print "Te";
   print (string) x;
 ];
 
 [ tu_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "su";
-      else                                 print "su";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) {
-        print "nuestr";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "mi";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "tu";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "su";
+      PRIMERA_PERSONA_PLURAL:   print "nuestr";
         if (player has female || (player provides gender &&
-            player.gender & G_FEMENINO)) print "a";
-        else                             print "o";
-      } else {
-        print "mi";
-      }
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) {
-        print "vuestr";
+            player.gender & G_FEMENINO))  print "a";
+        else                              print "o";
+      SEGUNDA_PERSONA_PLURAL:   print "vuestr";
         if (player has female || (player provides gender &&
-            player.gender & G_FEMENINO)) print "a";
-        else                             print "o";
-      } else {
-        print "tu";
-      }
+            player.gender & G_FEMENINO))  print "a";
+        else                              print "o";
+      TERCERA_PERSONA_PLURAL:   print "su";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "tu";
-  }
+  } else print "tu";
   print (string) x;
 ];
 
 [ _Tu_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Su";
-      else                                 print "Su";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) {
-        print "Nuestr";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Mi";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Tu";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Su";
+      PRIMERA_PERSONA_PLURAL:   print "Nuestr";
         if (player has female || (player provides gender &&
-            player.gender & G_FEMENINO)) print "a";
-        else                             print "o";
-      } else {
-        print "Mi";
-      }
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) {
-        print "Vuestr";
+            player.gender & G_FEMENINO))  print "a";
+        else                              print "o";
+      SEGUNDA_PERSONA_PLURAL:   print "Vuestr";
         if (player has female || (player provides gender &&
-            player.gender & G_FEMENINO)) print "a";
-        else                             print "o";
-      } else {
-        print "Tu";
-      }
+            player.gender & G_FEMENINO))  print "a";
+        else                              print "o";
+      TERCERA_PERSONA_PLURAL:   print "Su";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "Tu";
-  }
+  } else print "tu";
   print (string) x;
 ];
 
 [ as_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "an";
-      else                                 print "a";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "amos";
-      else                                 print "o";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "áis";
-      else                                 print "as";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "o";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "as";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "a";
+      PRIMERA_PERSONA_PLURAL:   print "amos";
+      SEGUNDA_PERSONA_PLURAL:   print "áis";
+      TERCERA_PERSONA_PLURAL:   print "an";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "as";
-  }
+  } else print "as";
   print (string) x;
 ];
 
 [ es_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "en";
-      else                                 print "e";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "emos";
-      else                                 print "o";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "éis";
-      else                                 print "es";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "o";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "es";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "e";
+      PRIMERA_PERSONA_PLURAL:   print "emos";
+      SEGUNDA_PERSONA_PLURAL:   print "éis";
+      TERCERA_PERSONA_PLURAL:   print "en";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "es";
-  }
-  print (string) x;
-];
-
-[ a_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "an";
-      else                                 print "a";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "amos";
-      else                                 print "a";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "áis";
-      else                                 print "as";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "as";
-  }
-  print (string) x;
-];
-
-[ oy_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "an";
-      else                                 print "a";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "amos";
-      else                                 print "oy";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "áis";
-      else                                 print "ás";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "ás";
-  }
-  print (string) x;
-];
-
-[ as__ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "án";
-      else                                 print "á";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "emos";
-      else                                 print "é";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "éis";
-      else                                 print "ás";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "ás";
-  }
+  } else print "es";
   print (string) x;
 ];
 
 [ _es_ x; ! Ya existe una rutina llamada 'es_'
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "en";
-      else                                 print "e";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "imos";
-      else                                 print "o";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "ís";
-      else                                 print "es";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "o";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "es";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "e";
+      PRIMERA_PERSONA_PLURAL:   print "imos";
+      SEGUNDA_PERSONA_PLURAL:   print "ís";
+      TERCERA_PERSONA_PLURAL:   print "en";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "es";
-  }
+  } else print "es";
   print (string) x;
 ];
 
-[ e_ x;
+[ oy_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "an";
-      else                                 print "a";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "emos";
-      else                                 print "e";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "abeís";
-      else                                 print "as";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "oy";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "ás";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "a";
+      PRIMERA_PERSONA_PLURAL:   print "amos";
+      SEGUNDA_PERSONA_PLURAL:   print "áis";
+      TERCERA_PERSONA_PLURAL:   print "án";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "as";
-  }
+  } else print "ás";
+  print (string) x;
+];
+
+[ as__ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "é";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "ás";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "á";
+      PRIMERA_PERSONA_PLURAL:   print "emos";
+      SEGUNDA_PERSONA_PLURAL:   print "éis";
+      TERCERA_PERSONA_PLURAL:   print "án";
+    }
+  } else print "ás";
+  print (string) x;
+];
+
+[ a_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "a";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "as";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "a";
+      PRIMERA_PERSONA_PLURAL:   print "amos";
+      SEGUNDA_PERSONA_PLURAL:   print "áis";
+      TERCERA_PERSONA_PLURAL:   print "an";
+    }
+  } else print "as";
   print (string) x;
 ];
 
 [ eo_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "en";
-      else                                 print "e";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "emos";
-      else                                 print "eo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "éis";
-      else                                 print "es";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "eo";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "es";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "e";
+      PRIMERA_PERSONA_PLURAL:   print "emos";
+      SEGUNDA_PERSONA_PLURAL:   print "éis";
+      TERCERA_PERSONA_PLURAL:   print "en";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "es";
-  }
+  } else print "es";
   print (string) x;
 ];
 
-[ ias_ x;
+[ e_ x;
   if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "ían";
-      else                                 print "ía";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "íamos";
-      else                                 print "ía";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "íais";
-      else                                 print "ías";
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "e";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "as";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "a";
+      PRIMERA_PERSONA_PLURAL:   print "emos";
+      SEGUNDA_PERSONA_PLURAL:   print "abéis";
+      TERCERA_PERSONA_PLURAL:   print "an";
     }
-  } else { ! Por defecto, segunda persona del singular
-    print "ías";
-  }
-  print (string) x;
-];
-
-[ sales_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "salen";
-      else                                 print "sale";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "salimos";
-      else                                 print "salgo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "salís";
-      else                                 print "sales";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "sales";
-  }
-  print (string) x;
-];
-
-[ _Sales_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Salen";
-      else                                 print "Sale";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Salimos";
-      else                                 print "Salgo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Salís";
-      else                                 print "Sales";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "Sales";
-  }
-  print (string) x;
-];
-
-[ tienes_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "tienen";
-      else                                 print "tiene";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "tenemos";
-      else                                 print "tengo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "tenéis";
-      else                                 print "tienes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "tienes";
-  }
-  print (string) x;
-];
-
-[ _Tienes_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Tienen";
-      else                                 print "Tiene";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Tenemos";
-      else                                 print "Tengo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Tenéis";
-      else                                 print "Tienes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "Tienes";
-  }
-  print (string) x;
-];
-
-[ sueltes_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "suelten";
-      else                                 print "suelte";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "soltemos";
-      else                                 print "suelte";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "soltéis";
-      else                                 print "sueltes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "sueltes";
-  }
-  print (string) x;
-];
-
-[ _Cierras_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Cierran";
-      else                                 print "Cierra";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Cerramos";
-      else                                 print "Cierro";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Cerráis";
-      else                                 print "Cierras";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "Cierras";
-  }
-  print (string) x;
-];
-
-[ puedes_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "pueden";
-      else                                 print "puede";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "podemos";
-      else                                 print "puedo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "podéis";
-      else                                 print "puedes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "puedes";
-  }
-  print (string) x;
-];
-
-[ pones_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "ponen";
-      else                                 print "pone";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "ponemos";
-      else                                 print "pongo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "ponéis";
-      else                                 print "pones";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "pones";
-  }
-  print (string) x;
-];
-
-[ sientes_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "sienten";
-      else                                 print "siente";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "sentimos";
-      else                                 print "siento";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "sentís";
-      else                                 print "sientes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "sientes";
-  }
-  print (string) x;
-];
-
-[ encuentro_ x;
-  if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "encuentran";
-      else                                 print "encuentra";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "encontramos";
-      else                                 print "encuentro";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "encontráis";
-      else                                 print "encuentras";
-    }
-  } else { ! Por defecto, primera persona del singular
-    print "encuentro";
-  }
-  print (string) x;
-];
-
-[ _Puedes_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Pueden";
-      else                                 print "Puede";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Podemos";
-      else                                 print "Puedo";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Podéis";
-      else                                 print "Puedes";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "Puedes";
-  }
-  print (string) x;
-];
-
-[ pueda_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "puedan";
-      else                                 print "pueda";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "podamos";
-      else                                 print "pueda";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "podáis";
-      else                                 print "puedas";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "puedas";
-  }
-  print (string) x;
-];
-
-[ ues_ x;
-  if (player provides persona && player.persona & PRIMERA_PERSONA) {
-    print "o", (string) x;
-  } else {
-    print "u", (_es_) x;
-  }
-];
-
-[ _se_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "saben";
-      else                                 print "sabe";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "sabemos";
-      else                                 print "sé";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "sabéis";
-      else                                 print "sabes";
-    }
-  } else { ! Por defecto, primera persona del singular
-    print "sé";
-  }
-  print (string) x;
-];
-
-[ eres_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "son";
-      else                                 print "es";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "somos";
-      else                                 print "soy";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "sois";
-      else                                 print "eres";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "eres";
-  }
-  print (string) x;
-];
-
-[ _Eres_ x;
- if (player provides persona) {
-    if (player.persona & TERCERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Son";
-      else                                 print "Es";
-    } else if (player.persona & PRIMERA_PERSONA) {
-      if (player.persona & PERSONA_PLURAL) print "Somos";
-      else                                 print "Soy";
-    } else { ! Segunda persona
-      if (player.persona & PERSONA_PLURAL) print "Sois";
-      else                                 print "Eres";
-    }
-  } else { ! Por defecto, segunda persona del singular
-    print "Eres";
-  }
+  } else print "as";
   print (string) x;
 ];
 
@@ -2582,14 +2276,253 @@ Property persona alias number;
   print (string) x;
 ];
 
-! ti_       te_  tu_      as_    es_   _es_  oy_   as__  a_    eo_   e_     os_   z_   ias_   ues_
-! ____________________________________________________________________________________________________
-! mí        me   mi       o      o     o     oy    é     a     eo    e      o     z    ía     o
-! ti        te   tu       as     es    es    ás    ás    as    es    as     o     z    ías    ues
-! sí        le   su       a      e     e     a     á     a     e     a      o     z    ía     ue
-! nosotros  nos  nuestro  amos   emos  imos  amos  emos  amos  emos  emos   os    ces  íamos  uimos
-! vosotros  os   vuestro  áis    éis   ís    áis   éis   áis   éis   abéis  os    ces  íais   uís
-! ellos     les  su       an     en    en    án    án    an    en    an     os    ces  ían    uen
+[ ias_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "ía";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "ías";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "ía";
+      PRIMERA_PERSONA_PLURAL:   print "íamos";
+      SEGUNDA_PERSONA_PLURAL:   print "íais";
+      TERCERA_PERSONA_PLURAL:   print "ían";
+    }
+  } else print "ías";
+  print (string) x;
+];
+
+[ ues_ x;
+  if (player provides persona &&
+      player.persona & PRIMERA_PERSONA) print "o", (string) x;
+  else                                  print "u", (_es_) x;
+];
+
+[ sales_ x;
+  print "sal";
+  if (player provides persona && player.persona ==
+      PRIMERA_PERSONA or PRIMERA_PERSONA_SINGULAR) print "g";
+  print (_es_) x;
+];
+
+[ _Sales_ x;
+  print "Sal";
+  if (player provides persona && player.persona ==
+      PRIMERA_PERSONA or PRIMERA_PERSONA_SINGULAR) print "g";
+  print (_es_) x;
+];
+
+[ pones_ x;
+  print "pon";
+  if (player provides persona && player.persona ==
+      PRIMERA_PERSONA or PRIMERA_PERSONA_SINGULAR) print "g";
+  print (es_) x;
+];
+
+[ tienes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "teng";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "tien";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "tien";
+      PRIMERA_PERSONA_PLURAL:   print "tene";
+      SEGUNDA_PERSONA_PLURAL:   print "ten";
+      TERCERA_PERSONA_PLURAL:   print "tien";
+    }
+  } else print "tien";
+  print (es_) x;
+];
+
+[ _Tienes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Teng";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Tien";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Tien";
+      PRIMERA_PERSONA_PLURAL:   print "Tene";
+      SEGUNDA_PERSONA_PLURAL:   print "Ten";
+      TERCERA_PERSONA_PLURAL:   print "Tien";
+    }
+  } else print "Tien";
+  print (es_) x;
+];
+
+[ sueltes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "suelte";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "sueltes";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "suelte";
+      PRIMERA_PERSONA_PLURAL:   print "soltemos";
+      SEGUNDA_PERSONA_PLURAL:   print "soltéis";
+      TERCERA_PERSONA_PLURAL:   print "suelten";
+    }
+  } else print "sueltes";
+  print (string) x;
+];
+
+[ _Cierras_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Cierro";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Cierras";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Cierra";
+      PRIMERA_PERSONA_PLURAL:   print "Cerramos";
+      SEGUNDA_PERSONA_PLURAL:   print "Cerráis";
+      TERCERA_PERSONA_PLURAL:   print "Cierran";
+    }
+  } else print "Cierras";
+  print (string) x;
+];
+
+[ puedes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "puedo";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "puedes";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "puede";
+      PRIMERA_PERSONA_PLURAL:   print "podemos";
+      SEGUNDA_PERSONA_PLURAL:   print "podéis";
+      TERCERA_PERSONA_PLURAL:   print "pueden";
+    }
+  } else print "puedes";
+  print (string) x;
+];
+
+[ _Puedes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Puedo";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Puedes";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Puede";
+      PRIMERA_PERSONA_PLURAL:   print "Podemos";
+      SEGUNDA_PERSONA_PLURAL:   print "Podéis";
+      TERCERA_PERSONA_PLURAL:   print "Pueden";
+    }
+  } else print "Puedes";
+  print (string) x;
+];
+
+[ pueda_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "pueda";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "puedas";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "pueda";
+      PRIMERA_PERSONA_PLURAL:   print "podamos";
+      SEGUNDA_PERSONA_PLURAL:   print "podáis";
+      TERCERA_PERSONA_PLURAL:   print "puedan";
+    }
+  } else print "puedas";
+  print (string) x;
+];
+
+[ sientes_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "siento";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "sientes";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "siente";
+      PRIMERA_PERSONA_PLURAL:   print "sentimos";
+      SEGUNDA_PERSONA_PLURAL:   print "sentís";
+      TERCERA_PERSONA_PLURAL:   print "sienten";
+    }
+  } else print "sientes";
+  print (string) x;
+];
+
+[ encuentro_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "encuentro";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "encuentras";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "encuentra";
+      PRIMERA_PERSONA_PLURAL:   print "encontramos";
+      SEGUNDA_PERSONA_PLURAL:   print "encontráis";
+      TERCERA_PERSONA_PLURAL:   print "encuentran";
+    }
+  } else print "encuentro";
+  print (string) x;
+];
+
+[ _se_ x;
+  if (player provides persona) {
+    if (player.persona == PRIMERA_PERSONA or
+        PRIMERA_PERSONA_SINGULAR) print "sé", (string) x;
+    else                                    print "sab", (es_) x;
+  } else print "sé", (string) x;
+];
+
+[ eres_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "soy";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "eres";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "es";
+      PRIMERA_PERSONA_PLURAL:   print "somos";
+      SEGUNDA_PERSONA_PLURAL:   print "sois";
+      TERCERA_PERSONA_PLURAL:   print "son";
+    }
+  } else print "eres";
+  print (string) x;
+];
+
+[ _Eres_ x;
+  if (player provides persona) {
+    switch (player.persona) {
+      PRIMERA_PERSONA,
+      PRIMERA_PERSONA_SINGULAR: print "Soy";
+      SEGUNDA_PERSONA,
+      SEGUNDA_PERSONA_SINGULAR: print "Eres";
+      TERCERA_PERSONA,
+      TERCERA_PERSONA_SINGULAR: print "Es";
+      PRIMERA_PERSONA_PLURAL:   print "Somos";
+      SEGUNDA_PERSONA_PLURAL:   print "Sois";
+      TERCERA_PERSONA_PLURAL:   print "Son";
+    }
+  } else print "Eres";
+  print (string) x;
+];
+
+! ti_       se_  te_  tu_      as_    es_   _es_  oy_   as__  a_    eo_   e_     os_   z_   ias_   ues_
+! _________________________________________________________________________________________________________
+! mí        me   me   mi       o      o     o     oy    é     a     eo    e      o     z    ía     o
+! ti        te   te   tu       as     es    es    ás    ás    as    es    as     o     z    ías    ues
+! sí        se   le   su       a      e     e     a     á     a     e     a      o     z    ía     ue
+! nosotr@s  nos  nos  nuestr@  amos   emos  imos  amos  emos  amos  emos  emos   os    ces  íamos  uimos
+! vosotr@s  os   os   vuestr@  áis    éis   ís    áis   éis   áis   éis   abéis  os    ces  íais   uís
+! ell@s     se   les  su       an     en    en    án    án    an    en    an     os    ces  ían    uen
 
 [ LanguageLM n x1;
 ! Answer: "", (The) second , " no ", (te_) " responde."; ! esto sera sólo para I6?
@@ -2761,6 +2694,7 @@ Property persona alias number;
 
   Exit:
     ! 1: Error, el jugador no está subido/sentado/metido en ningún
+
     !    objeto. [Nota, si la localidad tiene la propiedad "afuera",
     !    entonces la acción Salir lo sacará de la localidad. En caso
     !    contrario es cuando se genera este error]
