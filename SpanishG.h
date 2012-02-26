@@ -933,7 +933,7 @@ Verb meta 'xlista'
     ! han leido, o bien se encuentre una que no encaja en cuyo
     ! caso se retorna las que se habían encontrado antes del "de"
 
-    else if (p== 'el' or 'la' or 'los' or 'las' or 'de') {
+    else if (p == 'el' or 'la' or 'los' or 'las' or 'de') {
       dudas++; continue;
     }        
     else seguir = 0;   ! Si no fue reconocida, ni un articulo, ni "de"
