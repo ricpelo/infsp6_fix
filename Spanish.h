@@ -2018,6 +2018,7 @@ Property persona alias number;
         if (player has female || (player provides gender &&
             player.gender & G_FEMENINO))  print "as";
         else                              print "os";
+      default:                  print "ti";
     }
   } else print "ti";
   print (string) x;
@@ -2035,6 +2036,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "nos";
       SEGUNDA_PERSONA_PLURAL:   print "os";
       TERCERA_PERSONA_PLURAL:   print "se";
+      default:                  print "te";
     }
   } else print "te";
   print (string) x;
@@ -2052,6 +2054,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "nos";
       SEGUNDA_PERSONA_PLURAL:   print "os";
       TERCERA_PERSONA_PLURAL:   print "les";
+      default:                  print "te";
     }
   } else print "te";
   print (string) x;
@@ -2069,6 +2072,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "Nos";
       SEGUNDA_PERSONA_PLURAL:   print "Os";
       TERCERA_PERSONA_PLURAL:   print "Les";
+      default:                  print "Te";
     }
   } else print "Te";
   print (string) x;
@@ -2092,6 +2096,7 @@ Property persona alias number;
             player.gender & G_FEMENINO))  print "a";
         else                              print "o";
       TERCERA_PERSONA_PLURAL:   print "su";
+      default:                  print "tu";
     }
   } else print "tu";
   print (string) x;
@@ -2115,6 +2120,7 @@ Property persona alias number;
             player.gender & G_FEMENINO))  print "a";
         else                              print "o";
       TERCERA_PERSONA_PLURAL:   print "Su";
+      default:                  print "tu";
     }
   } else print "tu";
   print (string) x;
@@ -2132,6 +2138,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "amos";
       SEGUNDA_PERSONA_PLURAL:   print "áis";
       TERCERA_PERSONA_PLURAL:   print "an";
+      default:                  print "as";
     }
   } else print "as";
   print (string) x;
@@ -2149,6 +2156,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "emos";
       SEGUNDA_PERSONA_PLURAL:   print "éis";
       TERCERA_PERSONA_PLURAL:   print "en";
+      default:                  print "es";
     }
   } else print "es";
   print (string) x;
@@ -2166,6 +2174,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "imos";
       SEGUNDA_PERSONA_PLURAL:   print "ís";
       TERCERA_PERSONA_PLURAL:   print "en";
+      default:                  print "es";
     }
   } else print "es";
   print (string) x;
@@ -2183,6 +2192,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "amos";
       SEGUNDA_PERSONA_PLURAL:   print "áis";
       TERCERA_PERSONA_PLURAL:   print "án";
+      default:                  print "ás";
     }
   } else print "ás";
   print (string) x;
@@ -2200,6 +2210,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "emos";
       SEGUNDA_PERSONA_PLURAL:   print "éis";
       TERCERA_PERSONA_PLURAL:   print "án";
+      default:                  print "ás";
     }
   } else print "ás";
   print (string) x;
@@ -2217,6 +2228,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "amos";
       SEGUNDA_PERSONA_PLURAL:   print "áis";
       TERCERA_PERSONA_PLURAL:   print "an";
+      default:                  print "as";
     }
   } else print "as";
   print (string) x;
@@ -2234,6 +2246,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "emos";
       SEGUNDA_PERSONA_PLURAL:   print "éis";
       TERCERA_PERSONA_PLURAL:   print "en";
+      default:                  print "es";
     }
   } else print "es";
   print (string) x;
@@ -2251,6 +2264,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "emos";
       SEGUNDA_PERSONA_PLURAL:   print "abéis";
       TERCERA_PERSONA_PLURAL:   print "an";
+      default:                  print "as";
     }
   } else print "as";
   print (string) x;
@@ -2288,6 +2302,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "íamos";
       SEGUNDA_PERSONA_PLURAL:   print "íais";
       TERCERA_PERSONA_PLURAL:   print "ían";
+      default:                  print "ías";
     }
   } else print "ías";
   print (string) x;
@@ -2332,6 +2347,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "tene";
       SEGUNDA_PERSONA_PLURAL:   print "ten";
       TERCERA_PERSONA_PLURAL:   print "tien";
+      default:                  print "tien";
     }
   } else print "tien";
   print (es_) x;
@@ -2349,6 +2365,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "Tene";
       SEGUNDA_PERSONA_PLURAL:   print "Ten";
       TERCERA_PERSONA_PLURAL:   print "Tien";
+      default:                  print "Tien";
     }
   } else print "Tien";
   print (es_) x;
@@ -2366,6 +2383,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "soltemos";
       SEGUNDA_PERSONA_PLURAL:   print "soltéis";
       TERCERA_PERSONA_PLURAL:   print "suelten";
+      default:                  print "sueltes";
     }
   } else print "sueltes";
   print (string) x;
@@ -2383,6 +2401,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "Cerramos";
       SEGUNDA_PERSONA_PLURAL:   print "Cerráis";
       TERCERA_PERSONA_PLURAL:   print "Cierran";
+      default:                  print "Cierras";
     }
   } else print "Cierras";
   print (string) x;
@@ -2400,6 +2419,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "podemos";
       SEGUNDA_PERSONA_PLURAL:   print "podéis";
       TERCERA_PERSONA_PLURAL:   print "pueden";
+      default:                  print "puedes";
     }
   } else print "puedes";
   print (string) x;
@@ -2417,6 +2437,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "Podemos";
       SEGUNDA_PERSONA_PLURAL:   print "Podéis";
       TERCERA_PERSONA_PLURAL:   print "Pueden";
+      default:                  print "Puedes";
     }
   } else print "Puedes";
   print (string) x;
@@ -2434,6 +2455,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "podamos";
       SEGUNDA_PERSONA_PLURAL:   print "podáis";
       TERCERA_PERSONA_PLURAL:   print "puedan";
+      default:                  print "puedas";
     }
   } else print "puedas";
   print (string) x;
@@ -2451,6 +2473,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "sentimos";
       SEGUNDA_PERSONA_PLURAL:   print "sentís";
       TERCERA_PERSONA_PLURAL:   print "sienten";
+      default:                  print "sientes";
     }
   } else print "sientes";
   print (string) x;
@@ -2468,6 +2491,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "encontramos";
       SEGUNDA_PERSONA_PLURAL:   print "encontráis";
       TERCERA_PERSONA_PLURAL:   print "encuentran";
+      default:                  print "encuentro";
     }
   } else print "encuentro";
   print (string) x;
@@ -2493,6 +2517,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "somos";
       SEGUNDA_PERSONA_PLURAL:   print "sois";
       TERCERA_PERSONA_PLURAL:   print "son";
+      default:                  print "eres";
     }
   } else print "eres";
   print (string) x;
@@ -2510,6 +2535,7 @@ Property persona alias number;
       PRIMERA_PERSONA_PLURAL:   print "Somos";
       SEGUNDA_PERSONA_PLURAL:   print "Sois";
       TERCERA_PERSONA_PLURAL:   print "Son";
+      default:                  print "Eres";
     }
   } else print "Eres";
   print (string) x;
