@@ -770,7 +770,7 @@ Array LanguageNumbers table
                     if ((x + 2) < tokenCount(pars)) {
                         siguiente = tokenDict(pars, x + 3);
                         retokenise = 1;
-                        if (siguiente == 'mismo') {
+                        if (siguiente == 'mismo' or 'misma') {
                             ! Hay que borrar tres palabras:
                             for (i = at: i < tokenPos(pars, x + 3) + tokenLen(pars, x + 3): i++) {
                                 buf->i = ' ';
