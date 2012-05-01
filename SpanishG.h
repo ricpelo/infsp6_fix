@@ -940,7 +940,7 @@ Verb meta 'xlista'
                        ! nos damos por vencidos
   }! while block
   
-  if (obj provides gender)
+!  if (obj provides gender)    (c) Alpha
     switch (gen) { ! Los casos del switch estaban mal.
       ! Bug corregido en 001030
       0,1: give obj ~female ~pluralname; !infsp fix for I7 compatibility (en I7 no se puede asignar el 0 a gender, de 1 para arriba, sí)
