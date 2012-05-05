@@ -2687,7 +2687,7 @@ Property persona alias number;
       1: print "Pero si ya est", (oy_) " ";
          if (x1 has supporter) print "sobre "; else print "en ";
          "", (the) x1, ".";
-      2: print "No es algo donde ", (pueda_) " "; LanguageVerb(verb_word); ".";
+      2: print "No es algo por donde ", (pueda_) " "; LanguageVerb(verb_word); ".";
       3: "No ", (puedes_) " entrar en ", (the) x1, " porque está", (n) x1,
          " cerrad", (o) x1, ".";
       4: print "No ", (puedes_) " "; LanguageVerb(verb_word);
