@@ -2735,9 +2735,9 @@ Property persona alias number;
          else                  print (_Sales_) " ";
          print_ret (del) x1, ".";
      4:  print "Pero es que no est", (oy_) " ";
-         if (x1 has supporter) print "encima de  ";
-         else                  print "dentro de ";
-         print_ret (the) x1, ".";
+         if (x1 has supporter) print "encima ";
+         else                  print "dentro ";
+         print_ret (del) x1, ".";
     }
 
   Fill:  "No ", (puedes_) " llenar", (lo) x1, ".";
@@ -2838,7 +2838,7 @@ Property persona alias number;
                              " donde sea.";
       2: "No se pueden meter cosas dentro ", (del) x1, ".";
       3: print_ret (The) x1, " ", (esta) x1, " cerrad", (o) x1, ".";
-      4: "", (_Tienes_) " que quitar", (te_) "", (lo) x1, " antes.";
+      4: "", (_Tienes_) " que quitár", (te_) "", (lo) x1, " antes.";
       5: "No ", (puedes_) " poner un objeto dentro de sí mismo.";
       6: "(primero ", (te_) " ", (lo) x1, " quitas)^";
       7: "No queda sitio en ", (the) x1, ".";
