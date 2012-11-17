@@ -153,55 +153,46 @@ Object Compass "brújula" has concealed female ;
   CompassDirection -> n_obj "norte"
     with
       name 'n//' 'norte',
-      input_link "norte",
       door_dir n_to;
 
   CompassDirection -> s_obj "sur"
     with
       name 's//' 'sur',
-      input_link "sur",
       door_dir s_to;
 
   CompassDirection -> e_obj "este"
     with
       name 'e//' 'este',
-      input_link "este",
       door_dir e_to;
 
   CompassDirection -> w_obj "oeste"
     with
       name 'w//' 'o//' 'oeste',
-      input_link "oeste",
       door_dir w_to;
 
   CompassDirection -> ne_obj "nordeste"
     with
       name 'ne' 'nordeste' 'noreste',
-      input_link "nordeste",
       door_dir ne_to;
 
   CompassDirection -> nw_obj "noroeste"
     with
       name 'no' 'nw' 'noroeste',
-      input_link "noroeste",
       door_dir nw_to;
 
   CompassDirection -> se_obj "sudeste"
     with
       name 'se' 'sureste' 'sudeste',
-      input_link "sureste",
       door_dir se_to;
 
   CompassDirection -> sw_obj "sudoeste"
     with
       name 'so' 'sw' 'suroeste' 'sudoeste',
-      input_link "suroeste",
       door_dir sw_to;
 
   CompassDirection -> u_obj "arriba",
     with
       name 'u//' 'arriba' 'ar' 'r//' 'sube' 'techo' 'cielo',
-      input_link "arriba",
       door_dir u_to,
     has
       proper;
@@ -209,7 +200,6 @@ Object Compass "brújula" has concealed female ;
   CompassDirection -> d_obj "abajo"
     with
       name 'd//' 'abajo' 'ab' 'b//' 'baja' 'piso' 'suelo',
-      input_link "abajo",
       door_dir d_to,
     has
       proper;
@@ -218,13 +208,11 @@ Object Compass "brújula" has concealed female ;
 CompassDirection -> in_obj "interior"
   with
     door_dir in_to,
-    input_link "interior",
     name 'en' 'dentro' 'adentro' 'interior';
 
 CompassDirection -> out_obj "exterior"
   with
     door_dir out_to,
-    input_link "exterior",
     name 'fuera' 'afuera' 'exterior';
 
 ! ---------------------------------------------------------------------------
