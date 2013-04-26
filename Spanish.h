@@ -1687,6 +1687,7 @@ Constant COMMA__TX     = ", ";
            ##Search:              print "A través de qué";
            ##Tie:                 print "A qué"; 
            ##Transfer,##Enter:    print "A dónde";
+           ##AskFor:              print "Qué";
            default:               print "A quién";
        };
     }
