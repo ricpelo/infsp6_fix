@@ -98,7 +98,7 @@ global PreguntaSiNo = 0;
 
 Global bandera_todo_vale; ! ¿y esta para qué sirve?
 Global quitacentos = 1;
-Array  texto_impreso --> 52;
+Array  texto_impreso -> 50 + WORDSIZE;
 
 Global dialecto_sudamericano = 0;
 
